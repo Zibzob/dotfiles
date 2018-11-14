@@ -1,0 +1,102 @@
+#!/bin/bash
+This line defines wich interpreter to use (in this case a bash file .sh)
+wildcards : ? any single char (except leading dot), * zero or more char (idem), []class of char ( - for range, ! to exlude)
+grep with regular expressions (with -i to ignore case) : '^toto'beginning line, 'toto$'end line, '\<toto\>'beginning/end word, '.toto'any one char, '[at4-7]toto'any one of the enclosed char, '[^]'any one char except those enclosed, * match zero or more of the previous char/expression, '\{x,y\}'match x to y occurences of the previous expression, '\{x\}'exactly x, '\{x,\}'x or more, '^$'blank lines
+evince toto.pdf         # visualisation of pdf documents
+openshot                # montage video
+info (command)          # get help on all commands (or on the specific command), help to find a command (with /)
+man <topic>		# to get info about a topic/command
+command --help          # quick help on a command and its options
+gzip (lzw)              # compression (decompression) of files
+cat path/file.ext       # display the file in the terminal, less better for big files
+less path/file.ext      # display big file in the terminal, scroll and search (/ "toto" Enter)
+ls ~/Document/toto      # run ls in the given folder
+cd ~ or simply cd       # home
+cd -                    # previous folder
+cd /toto                # absolute path
+cd /                    # root
+cd ./toto               # from current folder
+cd ../toto              # from parent folder
+pwd                     # Print Working Directory
+!!                      # repeat command
+sudo totocommand        # super user (give all rights) 
+sudo su                 # puts you in super user mode all the time
+su aurelien             # puts you in aurelien user mode
+apt-get install toto    # install toto, if toto = software present in the repository of ubuntu
+# apt comes from aptitude (name of the package manager of ubuntu)
+conda update -n base conda # to update conda
+apt-get remove toto     # uninstall
+apt-cache search toto*  # look for any packages in Ub dir with toto inside
+apt-cache policy toto   # check what we have installed on our machine (about programs from Ub rep)
+apt-get upgrade         # check for any upgrade for Ub soft if available
+sudo dpkg -i path/name.deb # to install a package dl from internet (not available in Ub rep)
+# .deb is the correct extension for Ub (dont take .rpm -> for fedora/redhat)
+sudo gvim /usr/share/X11/xkb/symbols/pc # pour remap keys from keyboard
+history | grep toto     # display command with toto from the history of commands
+locate fichier.ext      # to locate a file (see help) 
+ps                      # 
+top                     # lists all active processus
+lsusb                   # check usb port to see what is connected
+lspci                   # check pci devices, if they are connected etc
+lslbk                   # check disk, blocks, space
+ip addr                 # to check the status of your network connection
+iwconfig                # to check the settings of your wireless connection
+chown (-R) root:aurelien file.ext - change ownership of file:user=root and group=aurelien (R for recursive)
+chmod (-R) 664 file.ext      # change rights (6:r&w, 4:r) for owner(6)/group(6)/public(4)
+rm file.ext             # remove/delete file.ext
+rm -rf dir              # remove/delete directory
+mkdir toto              # create directory toto
+touch file.txt          # create a file without opening it
+cp f1.ext path/f2.ext   # copy a file f1 in dir located at path, and name it f2.ext
+mv f1.ext path/f2.ext   # move a file f1 in dir located at path, and name it f2.ext
+mv dir1 dir2            # rename dir1 to dir2
+find /usr/src -name '*.c' -size +100k -print
+xargs grep toto < file-list # look for toto in all the files written in file-list
+find . -type f/d -name "" # look/search in current dir for all files or dir respecting "toto" conditions
+find . -iname "toto"    # look/search in current dir for all files/dir respecting "toto" conditions
+find -size (-)1M        # look for files (under) over 1 megabyte
+find -not -size (-)1M   # look for files not (under) over 1 megabyte
+find -maxdepht n etc    # limit the recursive search to n dir
+blkid                   # shows partitions and type of partition (ext4, swap...)
+conda create --name toto python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn # pour creer un environment python
+conda create --name toto python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn gym# pour creer un environment python
+conda create --name pfr python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn selenium theano lasagne # pour creer un environment python
+convert -density 300 totoInput.pdf -quality 90 totoOutput.jpeg  - transform files between several different formats
+echo "toto" >> file.ext # append the string to the file (or create the file)
+conda env remove -n toto # to delete python environment
+smplayer                # video player interface built on mplayer http://www.smplayer.info/first-steps.php
+# git and github
+# git - premieres commandes quand on cree un nouveau repository
+git init                # in the folder where you want to start a new git repository
+git status              # to see the general information about your git repository
+git log                 # list the commits done in the repository
+git add file            # to the file or folder to the git versionning
+git add --all *         # add all files from the current folder
+git mv file dir         # move file to dir
+git rm file             # delete the file from your git repository AND from your computer
+# git - commandes a utiliser quand on travaille avec un repo existant (entre local et distant)
+git pull pfr master     # 1st THING TO DO, update your local repository with potential commit
+git commit file1 file2  # create a commit for file1 and file2 (they must have been added before)
+git commit -m "toto"    # add a message to the commit of the files (that have been added)
+git commit -a           # create a new commit with all changes on all files (add not necessary in this case)
+git push origin master  # send the commit in the main branch "master" of the repository "origin"
+git reset -hard HEAD    # NOT REVERSIBLE, cancel changes done since the last commit
+git reset -hard HEAD^   # NOT REVERSIBLE, delete the last commit. Can be repeated
+git revert commit       # restore the repository as it was at the specified commit
+git branch toto         # create new branch named toto
+git branch              # list the branches of the repository
+git checkout nameBranch # go from current branch to the specified one
+git merge nameBranch    # merge current branch with specified one
+git remote              # list all the remote servers you have configured
+git remote add bob https://github.com/Zibzob/ProjetFilRouge (.git?)     # Create an alias pointing to the address of the repository
+git remote add settings https://github.com/Zibzob/main_settings.git
+git remote rm bob       # delete the remote alias
+git fetch bob           # get the changes of bob branch
+git merge bob/master    # merge bob s changes with current branch
+git pull bob            # same effect as the last two commands
+cat .git/config         # writes to the terminal what is written in the config file of the git repository
+git diff commit1 com2   # compare those two versions
+sudo -i        # connect as root for the session
+strace            # way to attach to processes to see what they are doing
+sudo fdisk -l # to see what drives are seen by ubuntu
+man hier # lists and explain the hierarchy of the file system

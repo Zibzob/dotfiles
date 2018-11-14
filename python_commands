@@ -1,0 +1,419 @@
+#!/usr/bin/env python3
+# coding: utf-8
+import numpy as np
+from time import time
+from sklearn import datasets
+from numpy.linalg import eig
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+from sklearn.decomposition import PCA
+from sklearn.pipeline import Pipeline
+from matplotlib.colors import ListedColormap
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import cross_val_score
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+
+plt.close('all')
+
+
+who/whos        - check the variables in memory for ipython/jupyter
+pylint  -r n toto.py    - checks errors / style imperfections in the code
+
+# FUNCTIONS - LAMBDA
+# ============================================================================================
+# =============================================
+def function_name(arg1, arg2="initialisation de l arg"):
+    return resultat_func
+
+print((lambda x:x**2 + 5x)(4))
+
+
+
+# CONTROL STRUCTURES
+# ============================================================================================
+# =============================================
+for i in range(7):
+for f, v, m in zip(fruits, vegetables, meat): # loop over several iterables
+if condition1: 
+elif condition2:
+else:
+while condition:
+    break # Si on veut forcer la sortie de la boucle
+
+# Switch (inexistant in python) with a dictionary
+def f(x):
+    return {
+        'a': 1,
+        'b': 2
+    }.get(x, 9)    # 9 is default if x not found
+# Or if you want cases more complicated
+# define the function blocks
+def zero():
+    print "You typed zero.\n"
+def sqr():
+    print "n is a perfect square\n"
+def even():
+    print "n is an even number\n"
+def prime():
+    print "n is a prime number\n"
+# map the inputs to the function blocks
+options = {0 : zero,
+           1 : sqr,
+           4 : sqr,
+           9 : sqr,
+           2 : even,
+           3 : prime,
+           5 : prime,
+           7 : prime,
+}
+# Invoking of the switch
+options[num]()
+
+# Decorator
+@timer # A mettre au dessus de la definition de la fonction a decorer
+def timer(func):# Decorator pour mesurer le temps mis par une fonction pour s executer
+    def f(*args, **kwargs):
+        before = time()
+        rv = func(*args, **kwargs)
+        after = time()
+        print('Temps ecoule : ', after - before)
+        return rv
+    return f
+
+# Generator - yield/send
+import random
+
+def get_data():
+    """Return 3 random integers between 0 and 9"""
+    return random.sample(range(10), 3)
+
+def consume():
+    """Displays a running average across lists of integers sent to it"""
+    running_sum = 0
+    data_items_seen = 0
+
+    while True:
+        data = yield
+        data_items_seen += len(data)
+        running_sum += sum(data)
+        print('The running average is {}'.format(running_sum / float(data_items_seen)))
+
+def produce(consumer):
+    """Produces a set of values and forwards them to the pre-defined consumer
+    function"""
+    while True:
+        data = get_data()
+        print('Produced {}'.format(data))
+        consumer.send(data)
+        yield
+
+if __name__ == '__main__':
+    consumer = consume()
+    consumer.send(None)
+    producer = produce(consumer)
+
+    for _ in range(10):
+        print('Producing...')
+        next(producer)
+
+
+# GRAPHES
+# ============================================================================================
+# =============================================
+graph = {'A': set(['B', 'C']),
+         'B': set(['A', 'D', 'E']),
+         'C': set(['A', 'F']),
+         'D': set(['B']),
+         'E': set(['B', 'F']),
+         'F': set(['C', 'E'])}
+# Object - class graph
+class Graph:
+    def __init__(self, size):
+        self.size = size
+        self.vertices = [[]for i in range(size)]
+    def add_edge(self, i, j):
+        if not(i in self.vertices[j]):
+            self.vertices[j].append(i)
+
+# Depth First Search implementations
+def dfs(graph, start): # using stack
+    visited, stack = set(), [start]
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            stack.extend(graph[vertex] - visited)
+    return visited
+dfs(graph, 'A') # {'E', 'D', 'F', 'A', 'C', 'B'}
+
+def dfs(graph, start, visited=None): # Recursive
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    for next in graph[start] - visited:
+        dfs(graph, next, visited)
+    return visited
+dfs(graph, 'C') # {'E', 'D', 'F', 'A', 'C', 'B'}
+
+# Paths
+def dfs_paths(graph, start, goal): # using stack and generator
+    stack = [(start, [start])]
+    while stack:
+        (vertex, path) = stack.pop()
+        for next in graph[vertex] - set(path):
+            if next == goal:
+                yield path + [next]
+            else:
+                stack.append((next, path + [next]))
+list(dfs_paths(graph, 'A', 'F')) # [['A', 'C', 'F'], ['A', 'B', 'E', 'F']]
+
+def dfs_paths(graph, start, goal, path=None): # Recursive and yield
+    if path is None:
+        path = [start]
+    if start == goal:
+        yield path
+    for next in graph[start] - set(path):
+        yield from dfs_paths(graph, next, goal, path + [next])
+list(dfs_paths(graph, 'C', 'F')) # [['C', 'F'], ['C', 'A', 'B', 'E', 'F']]
+
+def bfs_paths(graph, start, goal):
+    queue = [(start, [start])]
+    while queue:
+        (vertex, path) = queue.pop(0)
+        for next in graph[vertex] - set(path):
+            if next == goal:
+                yield path + [next]
+            else:
+                queue.append((next, path + [next]))
+list(bfs_paths(graph, 'A', 'F')) # [['A', 'C', 'F'], ['A', 'B', 'E', 'F']]
+
+def shortest_path(graph, start, goal):
+    try:
+        return next(bfs_paths(graph, start, goal))
+    except StopIteration:
+        return None
+
+shortest_path(graph, 'A', 'F') # ['A', 'C', 'F']
+
+# Breadth First Search
+def bfs(graph, start):
+    visited, queue = set(), [start]
+    while queue:
+        vertex = queue.pop(0)
+        if vertex not in visited:
+            visited.add(vertex)
+            queue.extend(graph[vertex] - visited)
+    return visited
+bfs(graph, 'A') # {'B', 'C', 'A', 'F', 'D', 'E'}
+
+# CLASS & OBJECTS
+# ============================================================================================
+# =============================================
+class Voiture: # Convention : class name with just alphanum characters : VoitureSport
+	def __init__(self): # method called at the creation of the object
+		self.nom = "Ferrari"
+ma_voiture = Voiture() # Create an object
+ma_voiture.modele = "250"
+    @property
+    def roues(self):
+        print "Récupération du nombre de roues"
+        return self._roues
+
+    @roues.setter
+    def roues(self, v):
+        print "Changement du nombre de roues"
+        self._roues  =  v
+dir(ma_voiture) # to check the methods of an object
+ma_voiture.__dict__ # to check the attributes of an object
+
+
+
+#########################################################################################
+# DATA SCIENCE
+#########################################################################################
+
+
+
+# IMPORT DATA
+# ============================================================================================
+# =============================================
+df = pd.read_csv("./CTGSimple.csv", sep="\t", header=1)
+
+
+# MISCELLANEOUS
+# ============================================================================================
+# =============================================
+# Split the dataset, stratify to keep the global proportion of Y categories (if any)
+from sklearn.model_selection import train_test_split
+Xa, Xv, Ya, Yv = train_test_split(X, Y, shuffle=True, test_size=0.2, stratify=Y) 
+# Normalize data
+sc=StandardScaler(with_mean=True, with_std=True)
+sc=sc.fit(Xav)
+Xav=sc.transform(Xav)
+#%% #### Trace des courbes d'erreur d'apprentissage
+plt.figure()
+plt.semilogx(vectC, err_val, color='green', linestyle='--', marker='s', markersize=5, label='Validation') 
+plt.semilogx(vectC, err_app, color='blue', linestyle='--', marker='s', markersize=5, label='Apprentissage')
+plt.xlabel('Parametre C')
+plt.ylabel('Erreur Classification')
+plt.legend(loc='best')
+plt.show()
+
+# Cross validation (cross_val_score)
+neigh = KNeighborsClassifier(n_neighbors=i)
+np.mean(cross_val_score(neigh, X, y, cv=5)) # give the mean of the five results of cross_val
+
+
+
+# ACP - PCA (dimension reduction - Principal Component Analyse)
+# ============================================================================================
+# =============================================
+pca = PCA(n_components=n) # n = number of variable to keep
+X_red = pca.fit_transform(X)
+
+
+
+# LOGISTIC REGRESSION (optim max(vraisemblance derived from P), with P=f(score) et score=log(P1/P2))
+# ============================================================================================
+# =============================================
+# Xa, Xv, Xt, C to be determined
+from sklearn import linear_model
+from sklearn.metrics import accuracy_score
+clf_reglog = linear_model.LogisticRegression(tol=1e-5, multi_class='multinomial', solver='lbfgs') # liblinear (to use one against all method)
+vectC = np.logspace(-3, 2, 15)
+err_app = np.empty(vectC.shape[0])
+err_val = np.empty(vectC.shape[0])
+for ind_C, C in enumerate(vectC):
+    clf_reglog.C = C
+    clf_reglog.fit(Xa, Ya)
+    err_val[ind_C] = 1 - accuracy_score(Yv, clf_reglog.predict(Xv))
+    err_app[ind_C] = 1 - accuracy_score(Ya, clf_reglog.predict(Xa))
+err_min_val, ind_min = err_val.min(), err_val.argmin() # Choix du meilleur C
+Copt = vectC[ind_min]
+# Model final
+clf_reglog.C = Copt
+clf_reglog.fit(Xa, Ya)
+print('Valeur de Copt = {}'.format(Copt ))
+print('Err validation correspondante = {}'.format(100*(1 - accuracy_score(Yv, clf_reglog.predict(Xv)))))
+print('Err apprentissage correspondante = {}'.format(100*(1 - accuracy_score(Ya, clf_reglog.predict(Xa)))))
+proba = clf_reglog.predict_proba(Xv) # to get the probabilities calculated
+
+
+
+# LDA / QDA : Generative method, bayesien theorem, qualitative labels (require knowledge of proba law)
+# ============================================================================================
+# =============================================
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+# LDA
+clf_lda = LinearDiscriminantAnalysis(solver='svd', store_covariance=True)
+clf_lda.fit(X, Y)
+Y_lda = clf_lda.predict(X)
+err_lda = sum(Y_lda != Y)/Y.size
+print('LDA : taux d''erreur = {}%'.format(100*err_lda))
+# QDA
+clf_qda = QuadraticDiscriminantAnalysis(store_covariance=True)
+clf_qda.fit(X, Y)
+print(clf_qda.means_)
+Y_qda = clf_qda.predict(X)
+err_qda = sum(Y_qda!= Y)/Y.size
+print('QDA : taux d''erreur = {}%'.format(100*err_qda))
+
+
+
+# K-NEAREST NEIGBORS
+# ============================================================================================
+# =============================================
+neigh = KNeighborsClassifier(n_neighbors=i)
+neigh.fit(X_train, y_train)
+y_pred = neigh.predict(X_val)
+res = sum(y_val == y_pred)/len(y_val)*100
+
+
+
+# KMEANS - MINIBATCH KMeans
+# ============================================================================================
+# =============================================
+# KMeans
+model = KMeans(n_X)
+plt.scatter(X[:,0], X[:,1], c = model.fit_predict(X))
+cal_har_x = metrics.calinski_harabaz_score(X, model.fit_predict(X))
+# MiniBatch
+model = MiniBatchKMeans(n_X)
+plt.scatter(X[:,0], X[:,1], c = model.fit_predict(X))
+
+
+
+# HIERARCHICAL CLASSIFICATION
+# ============================================================================================
+# =============================================
+model = AgglomerativeClustering(n) # n = number of cluster to find (see sklearn for more)
+plt.scatter(X[:,0], X[:,1], c = model.fit_predict(X))
+
+
+
+# PLOTs
+# ============================================================================================
+# =============================================
+# To plot an image stored as a vector
+def plotimage(x, larg=28, haut=28, title=""):
+    img = np.reshape(x, (larg,haut))
+    imgplot = plt.imshow(img,cmap='gray')
+    plt.title(title, size=12)
+    plt.show()
+# Plot several charts / figures as a matrix
+plt.figure(figsize=(10, 10), dpi= 80, facecolor='w', edgecolor='k')
+plt.subplot(121) # nb ligne, nb col, num fig
+plt.scatter(X[:,0], X[:,1], s=100, c=y) # Nuage point, surface, couleur
+plt.tight_layout() # to minimize the overlap when drawing plots side by side
+plt.show
+
+# Trace de frontiere de decision en 2D
+def plot_regions_decision_2d(X, y, classifier, resolution=0.02, titre=' '):
+
+    # setup marker generator and color map
+    markers = ('s', 'x', 'o', '^', 'v')
+    colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
+    cmap = ListedColormap(colors[:len(np.unique(y))])
+
+    # plot the decision surface
+    x1_min, x1_max = X[:, 0].min() - 0, X[:, 0].max() + 0
+    x2_min, x2_max = X[:, 1].min() - 0, X[:, 1].max() + 0
+    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),
+                         np.arange(x2_min, x2_max, resolution))
+    Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
+    Z = Z.reshape(xx1.shape)
+    plt.figure()
+    plt.contourf(xx1, xx2, Z, alpha=0.4, cmap=cmap)
+    plt.xlim(xx1.min(), xx1.max())
+    plt.ylim(xx2.min(), xx2.max())
+
+    # plot class samples
+    for idx, cl in enumerate(np.unique(y)):
+        plt.scatter(x=X[y == cl, 0], y=X[y == cl, 1],
+                    alpha=0.6, c=cmap(idx),
+                    marker=markers[idx], label= 'classe {}'.format(cl))
+    plt.legend(loc='best')
+    plt.title(titre, fontsize=12)
+#%% ### Trace de la frontiere de decision en 2D
+# Utilisation de 2 variables choisies parmi les 4. 
+#On fait le modele LDA et QDA que pour ces variables
+variables = [2, 3]
+## on ne fait ceci que pour le trace de la frontiere de decision de la LDA et QDA en 2D
+classifieur = 'LDA'
+clf_lda.fit(X[:,variables], Y) 
+plot_regions_decision_2d(X[:,variables], Y, clf_lda, 0.02, titre='LDA')
+clf_qda.fit(X[:,variables], Y) 
+plot_regions_decision_2d(X[:,variables], Y, clf_qda, 0.02, titre='QDA')
+plt.show()
+
+
+def investing(years=30, apport=10000, taux=0.05, savings=5000):
+    pesos = apport * (1+taux) + savings
+    if years == 1:
+        return pesos
+    else:
+        return investing(years-1, pesos, taux, savings)
+

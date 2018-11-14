@@ -1,0 +1,269 @@
+#!/bin/bash
+
+#################################
+#################################
+# Aliases from the dotbot repo
+
+# Use colors in coreutils utilities output
+alias ls='ls --color=auto'
+alias grep='grep --color'
+
+# ls aliases
+alias la='ls -A'
+alias l='ls -lah'
+
+# Aliases to protect against overwriting
+alias cp='cp -i'
+alias mv='mv -i'
+
+# git related aliases
+alias gag='git exec ag'
+
+# Update dotfiles
+dfu() {
+    (
+        cd ~/.dotfiles && git pull --ff-only && ./install -q
+    )
+}
+
+# Use pip without requiring virtualenv
+syspip() {
+    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+syspip2() {
+    PIP_REQUIRE_VIRTUALENV="" pip2 "$@"
+}
+
+syspip3() {
+    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
+}
+
+# cd to git root directory
+alias cdgr='cd "$(git root)"'
+
+# Create a directory and cd into it
+mcd() {
+    mkdir "${1}" && cd "${1}"
+}
+
+# Jump to directory containing file
+jump() {
+    cd "$(dirname ${1})"
+}
+
+# cd replacement for screen to track cwd (like tmux)
+scr_cd()
+{
+    builtin cd $1
+    screen -X chdir "$PWD"
+}
+
+if [[ -n $STY ]]; then
+    alias cd=scr_cd
+fi
+
+# Go up [n] directories
+up()
+{
+    local cdir="$(pwd)"
+    if [[ "${1}" == "" ]]; then
+        cdir="$(dirname "${cdir}")"
+    elif ! [[ "${1}" =~ ^[0-9]+$ ]]; then
+        echo "Error: argument must be a number"
+    elif ! [[ "${1}" -gt "0" ]]; then
+        echo "Error: argument must be positive"
+    else
+        for ((i=0; i<${1}; i++)); do
+            local ncdir="$(dirname "${cdir}")"
+            if [[ "${cdir}" == "${ncdir}" ]]; then
+                break
+            else
+                cdir="${ncdir}"
+            fi
+        done
+    fi
+    cd "${cdir}"
+}
+
+# Execute a command in a specific directory
+xin() {
+    (
+        cd "${1}" && shift && ${@}
+    )
+}
+
+# Check if a file contains non-ascii characters
+nonascii() {
+    LC_ALL=C grep -n '[^[:print:][:space:]]' "${1}"
+}
+
+# Fetch pull request
+
+fpr() {
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        echo "error: fpr must be executed from within a git repository"
+        return 1
+    fi
+    (
+        cdgr
+        if [ "$#" -eq 2 ]; then
+            local repo="${PWD##*/}"
+            local user="${1}"
+            local branch="${2}"
+        elif [ "$#" -eq 3 ]; then
+            local repo="${1}"
+            local user="${2}"
+            local branch="${3}"
+        else
+            echo "Usage: fpr [repo] username branch"
+            return 1
+        fi
+
+        git fetch "git@github.com:${user}/${repo}" "${branch}:${user}/${branch}"
+    )
+}
+
+# Serve current directory
+
+serve() {
+    ruby -run -e httpd . -p "${1:-8080}"
+}
+
+# Mirror a website
+alias mirrorsite='wget -m -k -K -E -e robots=off'
+
+# Mirror stdout to stderr, useful for seeing data going through a pipe
+alias peek='tee >(cat 1>&2)'
+
+
+#################################
+#################################
+# Mes aliases
+# \cls to use cls command without alias (if the command exists)
+#alias ls='ls -alh'
+alias c='clear' #ctrl L idem
+alias q='exit'
+alias ..='cd ..  && ls'
+alias ...='cd ../..  && ls'
+alias ....='cd ../../..  && ls'
+alias g='grep'
+alias G='grep -i'
+alias pdf='xdg-open'
+alias agi='sudo apt-get install'
+alias agr='sudo apt-get remove'
+alias agug='sudo apt-get upgrade'
+alias agud='sudo apt-get update'
+alias h='history'
+alias hg='history | grep'
+alias envp='source activate'
+alias bonjour='echo Bonjour ô mon maître.'
+alias netw='sudo netstat -tupln'
+alias oal='gvim ~/main_settings/aliases'
+alias oba='gvim ~/main_settings/bash_commands'
+alias opy='gvim ~/main_settings/python_commands'
+alias ovi='gvim ~/main_settings/vim_commands'
+alias or='gvim ~/main_settings/r_commands'
+alias val='less ~/main_settings/aliases'
+alias vba='less ~/main_settings/bash_commands'
+alias vpy='less ~/main_settings/python_commands'
+alias vvi='less ~/main_settings/vim_commands'
+alias vr='less ~/main_settings/r_commands'
+alias scrab='d ~/Documents/Scrabble && gvim scrabble.py && ipy'
+alias fonction='typeset -F'
+alias path='echo -e ${PATH//:/\\n}'
+alias git_start='git init && git remote add settings https://github.com/Zibzob/main_settings.git'
+alias git_pull='git pull settings master'
+alias git_set_maj='git add .bash_aliases bash_command.sh .vimrc r_command.R python_command.py && git commit -m "maj settings" .bash_aliases bash_command.sh .vimrc r_command.R python_command.py && git push settings master'
+#alias cdML='cd $(dirname $(locate evalAF.py)) && ls'
+alias git_push_main='git add .bash_aliases .bashrc python_command.py bash_command.sh r_command.R .vimrc & git commit -a -m "Fichiers settings de base linux" & git push main_settings master'
+alias pfr='d ~/Documents/CoursINSA/PFR'
+alias cv='d ~/Documents/job/CV'
+alias pfr_2048='d ~/Documents/CoursINSA/PFR && gvim -O jeu_2048.py play_2048.py play_2048_test.py pfr.py && envp pfr && vpython'
+alias pfr_r='d ~/Documents/CoursINSA/PFR/Rapport/Rapport_theseTemplate'
+alias pfr_redac='d ~/Documents/CoursINSA/PFR/Rapport/Rapport_theseTemplate && gvim -O main.tex MastersDoctoralThesis.cls Chapters/*.tex'
+alias pfrold='d ~/Documents/CoursINSA/PFR && gvim pfr_old.py'
+alias cdml='d ~/Documents/CoursINSA/ML/ML2/TP3_Selection'
+alias cdGraph='d ~/Documents/CoursINSA/Optimisation/TP_Dijkstra'
+alias cdinsa='d ~/Documents/CoursINSA'
+alias ipy='envp toto && vpython'
+alias nautML='nautilus $(dirname $(locate evalAF.py))'
+alias noteML='cdML && envp toto && jupyter notebook'
+alias p='cdinsa && grepPython'
+#alias vpython='ipython3 --TerminalInteractiveShell.editing_mode=vi -pylab'
+alias vpython='ipython3 -pylab'
+
+function mkcd() { #Cree le repertoire et va dedans
+mkdir $1 && cd $1
+}
+
+function aal() { # append to my alias file
+echo $1 >> ~/main_settings/aliases
+}
+
+function aba() { # append to my bash commands file
+echo $1 >> ~/main_settings/bash_commands
+}
+
+function apy() { # append to my python commands file
+echo $1 >> ~/main_settings/python_commands
+}
+
+function avi() { # append to my vim commands file
+echo $1 >> ~/main_settings/vim_commands
+}
+
+function apr() { # append to my R commands file
+echo $1 >> ~/main_settings/r_commands
+}
+
+function gal() { # grep in my alias file
+grep -i $1 ~/main_settings/aliases
+}
+
+function gba() { # grep in my bash commands file
+grep -i $1 ~/main_settings/bash_commands
+}
+
+function gpy() { # grep in my python commands file
+grep -i $1 ~/main_settings/python_commands
+}
+
+function gvi() { # grep in my gvim commands file
+grep -i $1 ~/main_settings/vim_commands
+}
+
+function gr() { # grep in my R commands file
+grep -i $1 ~/main_settings/r_commands
+}
+
+function d() { # change directory and ls
+    if [[$1 == '']]
+    then
+        cd ~/ && ls
+    else
+        cd $1 && ls
+    fi
+}
+
+function grepPython() { # Search a regex through all python documents in children files
+grep -i $1 $(find -iname *.py)
+
+}
+
+function goto() { # Go to the first directory containing the looked up file
+cd $(dirname $(find -iname $1)) && ls
+}
+
+function cmd() { # Grep through all the available commands
+compgen -A function -abck | grep $1
+}
+
+function search_available_package() { # Grep through all available packages from apt-get
+apt-cache search . | grep $1
+}
+
+function search_installed_package() { # Grep through all the installed programs
+apt list --installed | grep $1
+}
+
