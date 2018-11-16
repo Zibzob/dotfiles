@@ -100,3 +100,8 @@ sudo -i        # connect as root for the session
 strace            # way to attach to processes to see what they are doing
 sudo fdisk -l # to see what drives are seen by ubuntu
 man hier # lists and explain the hierarchy of the file system
+cut -d':' -f2-4,5 file.txt # Cuts every line with delimiter ':' and returns fields2 to 4 and 5
+wc -l file.txt # Returns the number of lines of the file
+find . -iregex '.*truc.*' 2> /dev/null          # Look for a regular expression in every repo from the repo in input
+baobab # Disk usage analyser
+gnome-disks # Mount Unmount easily disks

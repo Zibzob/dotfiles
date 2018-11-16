@@ -256,7 +256,7 @@ cd $(dirname $(find -iname $1)) && ls
 }
 
 function cmd() { # Grep through all the available commands
-compgen -A function -abck | grep $1
+compgen -A function -abck | grep $1 | sort | grep $1
 }
 
 function search_available_package() { # Grep through all available packages from apt-get
