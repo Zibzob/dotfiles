@@ -1,4 +1,5 @@
 #!/bin/bash
+path_dotfiles=~/dotfiles
 
 #################################
 #################################
@@ -159,16 +160,16 @@ alias hg='history | grep'
 alias envp='source activate'
 alias bonjour='echo Bonjour ô mon maître.'
 alias netw='sudo netstat -tupln'
-alias oal='gvim ~/main_settings/aliases'
-alias oba='gvim ~/main_settings/bash_commands'
-alias opy='gvim ~/main_settings/python_commands'
-alias ovi='gvim ~/main_settings/vim_commands'
-alias or='gvim ~/main_settings/r_commands'
-alias val='less ~/main_settings/aliases'
-alias vba='less ~/main_settings/bash_commands'
-alias vpy='less ~/main_settings/python_commands'
-alias vvi='less ~/main_settings/vim_commands'
-alias vr='less ~/main_settings/r_commands'
+alias oal='gvim $path_dotfiles/aliases'
+alias oba='gvim $path_dotfiles/bash_commands'
+alias opy='gvim $path_dotfiles/python_commands'
+alias ovi='gvim $path_dotfiles/vim_commands'
+alias or='gvim  $path_dotfiles/r_commands'
+alias val='less $path_dotfiles/aliases'
+alias vba='less $path_dotfiles/bash_commands'
+alias vpy='less $path_dotfiles/python_commands'
+alias vvi='less $path_dotfiles/vim_commands'
+alias vr='less  $path_dotfiles/r_commands'
 alias scrab='d ~/Documents/Scrabble && gvim scrabble.py && ipy'
 alias fonction='typeset -F'
 alias path='echo -e ${PATH//:/\\n}'
@@ -193,48 +194,59 @@ alias p='cdinsa && grepPython'
 #alias vpython='ipython3 --TerminalInteractiveShell.editing_mode=vi -pylab'
 alias vpython='ipython3 -pylab'
 
-function mkcd() { #Cree le repertoire et va dedans
+# Cree le repertoire et va dedans : function mkcd() { mkdir $1 && cd $1 }
+function mkcd() { 
 mkdir $1 && cd $1
 }
 
-function aal() { # append to my alias file
-echo $1 >> ~/main_settings/aliases
+# append to my alias file : function aal() { echo $1 >> $path_dotfiles/aliases }
+function aal() { 
+echo $1 >> $path_dotfiles/aliases
 }
 
-function aba() { # append to my bash commands file
-echo $1 >> ~/main_settings/bash_commands
+# append to my bash commands file : function aba() { echo $1 >> $path_dotfiles/bash_commands }
+function aba() { 
+echo $1 >> $path_dotfiles/bash_commands
 }
 
-function apy() { # append to my python commands file
-echo $1 >> ~/main_settings/python_commands
+# append to my python commands file : function apy() { echo $1 >> $path_dotfiles/python_commands }
+function apy() { 
+echo $1 >> $path_dotfiles/python_commands
 }
 
-function avi() { # append to my vim commands file
-echo $1 >> ~/main_settings/vim_commands
+# append to my vim commands file : function avi() { echo $1 >> $path_dotfiles/vim_commands }
+function avi() { 
+echo $1 >> $path_dotfiles/vim_commands
 }
 
-function apr() { # append to my R commands file
-echo $1 >> ~/main_settings/r_commands
+# append to my R commands file : function apr() { echo $1 >> $path_dotfiles/r_commands }
+function apr() { 
+echo $1 >> $path_dotfiles/r_commands
 }
 
-function gal() { # grep in my alias file
-grep -i $1 ~/main_settings/aliases
+# grep in my alias file : function gal() { grep -i $1 $path_dotfiles/aliases }
+function gal() { 
+grep -i $1 $path_dotfiles/aliases
 }
 
-function gba() { # grep in my bash commands file
-grep -i $1 ~/main_settings/bash_commands
+# grep in my bash commands file : function gba() { grep -i $1 $path_dotfiles/bash_commands }
+function gba() { 
+grep -i $1 $path_dotfiles/bash_commands
 }
 
-function gpy() { # grep in my python commands file
-grep -i $1 ~/main_settings/python_commands
+# grep in my python commands file : function gpy() { grep -i $1 $path_dotfiles/python_commands }
+function gpy() { 
+grep -i $1 $path_dotfiles/python_commands
 }
 
-function gvi() { # grep in my gvim commands file
-grep -i $1 ~/main_settings/vim_commands
+# grep in my gvim commands file : function gvi() { grep -i $1 $path_dotfiles/vim_commands }
+function gvi() { 
+grep -i $1 $path_dotfiles/vim_commands
 }
 
-function gr() { # grep in my R commands file
-grep -i $1 ~/main_settings/r_commands
+# grep in my R commands file : function gr() { grep -i $1 $path_dotfiles/r_commands }
+function gr() { 
+grep -i $1 $path_dotfiles/r_commands
 }
 
 function d() { # change directory and ls
@@ -246,27 +258,31 @@ function d() { # change directory and ls
     fi
 }
 
-function grepPython() { # Search a regex through all python documents in children files
+# Search a regex through all python documents in children files : function grepPython() { grep -i $1 $(find -iname *.py) }
+function grepPython() { 
 grep -i $1 $(find -iname *.py)
-
 }
 
-function goto() { # Go to the first directory containing the looked up file
+# Go to the first directory containing the looked up file : function goto() { cd $(dirname $(find -iname $1)) && ls }
+function goto() { 
 cd $(dirname $(find -iname $1)) && ls
 }
 
-#function cmd() { compgen -A function -abck | grep $1 | sort | grep $1 } # Grep through all the available commands
-
-
+# Grep through all the available commands : function cmd() { compgen -A function -abck | grep $1 | sort | grep $1 } 
 function cmd() {
     compgen -A function -abck | grep $1 | sort | grep $1
-} # Grep through all the available commands
+} 
 
-function search_available_package() { # Grep through all available packages from apt-get
+# Grep through all available packages from apt-get : function search_available_package() { apt-cache search . | grep $1 }
+function search_available_package() { 
 apt-cache search . | grep $1
 }
 
-function search_installed_package() { # Grep through all the installed programs
+# Grep through all the installed programs : function search_installed_package() { apt list --installed | grep $1 }
+function search_installed_package() { 
 apt list --installed | grep $1
 }
 
+function cat_files() { # cat the files from the current directory
+apt list --installed | grep $1
+}

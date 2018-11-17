@@ -105,3 +105,5 @@ wc -l file.txt # Returns the number of lines of the file
 find . -iregex '.*truc.*' 2> /dev/null          # Look for a regular expression in every repo from the repo in input
 baobab # Disk usage analyser
 gnome-disks # Mount Unmount easily disks
+agi gnome-tweak-tool # To remap the Caps Lock to the control key
+grep -v 'pattern' filename # matches all but (NOT) the pattern lines

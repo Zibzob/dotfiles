@@ -108,7 +108,7 @@ nmap <silent> <A-Right> :wincmd l<CR>
 " ==== Motions remap ====
 nnoremap <C-Space> 079l
 nnoremap <C-C> I# <ESC>
-nnoremap <CR> o<ESC>k
+nnoremap <C-CR> o<ESC>k
 nnoremap <S-CR> O<ESC>j
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>

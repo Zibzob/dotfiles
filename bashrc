@@ -1,38 +1,29 @@
 #!/bin/bash
-# Allow local customizations in the ~/.shell_local_before file
-if [ -f ~/.shell_local_before ]; then
-    source ~/.shell_local_before
-fi
+dir=~/dotfiles                    # dotfiles directory
+dir_old=~/dotfiles_old             # old dotfiles directory
+
+# Loads default bashrc config
+source $dir_old/.bashrc
 
 # Allow local customizations in the ~/.bashrc_local_before file
-if [ -f ~/.bashrc_local_before ]; then
-    source ~/.bashrc_local_before
-fi
+#if [ -f ~/.bashrc_local_before ]; then
+#    source ~/.bashrc_local_before
+#fi
 
 # Settings
-source ~/.bash/settings.bash
+source $dir/settings.bash
 
 # Bootstrap
-source ~/.shell/bootstrap.sh
+#source $dir/bootstrap.sh
 
 # External settings
-source ~/.shell/external.sh
+#source $dir/external.sh
 
 # Aliases
-source ~/main_settings/aliases
+source $dir/aliases
 
 # Custom prompt
-source ~/.bash/prompt.bash
+source $dir/prompt.bash
 
 # Plugins
-source ~/.bash/plugins.bash
-
-# Allow local customizations in the ~/.shell_local_after file
-if [ -f ~/.shell_local_after ]; then
-    source ~/.shell_local_after
-fi
-
-# Allow local customizations in the ~/.bashrc_local_after file
-if [ -f ~/.bashrc_local_after ]; then
-    source ~/.bashrc_local_after
-fi
+#source $dir/plugins.bash
