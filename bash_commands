@@ -107,3 +107,10 @@ baobab # Disk usage analyser
 gnome-disks # Mount Unmount easily disks
 agi gnome-tweak-tool # To remap the Caps Lock to the control key
 grep -v 'pattern' filename # matches all but (NOT) the pattern lines
+which command # locate a command
+chsh -s /usr/bin/zsh # change the default shell (with zsh, which needs to be installed already)
+sh -c blabla (voir help) # to execute from a file or something
+upgrade_oh_my_zsh           # check updates for oh my zsh
+agi git-core zsh    # to install both git-core and zsh,
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"         # to install oh my zsh
+agi fonts-powerline

@@ -229,6 +229,11 @@ function gal() {
 grep -i $1 $path_dotfiles/aliases
 }
 
+# grep in all alias : function ag() { alias | grep -i $1 }
+function ag() { 
+alias | grep -i $1 
+}
+
 # grep in my bash commands file : function gba() { grep -i $1 $path_dotfiles/bash_commands }
 function gba() { 
 grep -i $1 $path_dotfiles/bash_commands
@@ -270,16 +275,16 @@ cd $(dirname $(find -iname $1)) && ls
 
 # Grep through all the available commands : function cmd() { compgen -A function -abck | grep $1 | sort | grep $1 } 
 function cmd() {
-    compgen -A function -abck | grep $1 | sort | grep $1
+    bash -c "compgen -A function -abck" | sort | grep $1
 } 
 
-# Grep through all available packages from apt-get : function search_available_package() { apt-cache search . | grep $1 }
-function search_available_package() { 
+# Grep through all available packages from apt-get : function sap() { apt-cache search . | grep $1 }
+function sap() { 
 apt-cache search . | grep $1
 }
 
-# Grep through all the installed programs : function search_installed_package() { apt list --installed | grep $1 }
-function search_installed_package() { 
+# Grep through all the installed programs : function sip() { apt list --installed | grep $1 }
+function sip() { 
 apt list --installed | grep $1
 }
 

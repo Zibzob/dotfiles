@@ -1,13 +1,17 @@
 #!/bin/vim
+# I m going to use the Z mark to mark what I'm currently trying to learn in the help menu
 %s/toto//gn                     # use substitute command to count the number of occurences of toto (the n flag makes it a non op - it does not do the replacement, the g flag makes it find all occurences on each line instead of stopping at the first
 %s/color \<\(red\|blue\)\>/colored "\1"/g
 :marks                          # to list all the saved marks
+/\stroutrou/m/\stic
 '[, ']                          # jumps to the last edited (copied, pasted, inserted) place of the file
 '^                              # jumps to the last inserted line of the file
 '<, '>                          # jumps to the beginning/ending of the last visual selection
+gv                              # re select the last visual selection
 :ju                             # to list all the jumps
 :help jumps                     # help menu to a particular subject
 /toto\|titi                     # search for toto OR titi
 /.*red\&.*blue                  # search for lines containing red AND blue in ANY order
 /\<toto\>                       # search for whole word toto (\< : starting, \> : ending)
 /\(\<\w\+\>\)\_s*\<\1\>         # search for duplicated words (separated by \s : space/tab, \_s : space/tab/new line)
+:vert ba, ba                    # split (vertically) in as many windows as buffers
