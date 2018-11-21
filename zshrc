@@ -57,16 +57,21 @@ ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Autojump
+. /usr/share/autojump/autojump.sh
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 plugins=(
-  git colored-man-pages vi-mode colorize dirpersist
+  git colored-man-pages vi-mode colorize dirpersist autojump
 )
 
 source $ZSH/oh-my-zsh.sh
+
 
 # User configuration
 

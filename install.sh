@@ -9,9 +9,19 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc vimrc vim"    # list of files/folders to symlink in homedir
+files="bashrc vimrc zshrc"          # list of files/folders to symlink in homedir
 
 ##########
+# Things to install
+sudo apt-get install vim-gtk3
+sudo apt-get install zsh
+sudo apt-get install git-core
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sudo apt-get install fonts-powerline
+sudo apt-get install autojump
+
+# Upgrade things
+upgrade_oh_my_zsh
 
 # create dotfiles_old in homedir
 echo "Creating $olddir for backup of any existing dotfiles in ~"
@@ -35,3 +45,5 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 
+# Create symbolic link to the 1To hard drive
+ln -s /media/aurelf/Data ~/Data

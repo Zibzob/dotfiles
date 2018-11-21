@@ -96,21 +96,19 @@ git merge bob/master    # merge bob s changes with current branch
 git pull bob            # same effect as the last two commands
 cat .git/config         # writes to the terminal what is written in the config file of the git repository
 git diff commit1 com2   # compare those two versions
-sudo -i        # connect as root for the session
-strace            # way to attach to processes to see what they are doing
-sudo fdisk -l # to see what drives are seen by ubuntu
-man hier # lists and explain the hierarchy of the file system
-cut -d':' -f2-4,5 file.txt # Cuts every line with delimiter ':' and returns fields2 to 4 and 5
-wc -l file.txt # Returns the number of lines of the file
-find . -iregex '.*truc.*' 2> /dev/null          # Look for a regular expression in every repo from the repo in input
-baobab # Disk usage analyser
-gnome-disks # Mount Unmount easily disks
-agi gnome-tweak-tool # To remap the Caps Lock to the control key
+sudo -i                 # connect as root for the session
+strace                  # way to attach to processes to see what they are doing
+sudo fdisk -l           # to see what drives are seen by ubuntu
+man hier                # lists and explain the hierarchy of the file system
+cut -d':' -f2-4,5 file.txt# Cuts every line with delimiter ':' and returns fields2 to 4 and 5
+wc -l file.txt          # Returns the number of lines of the file
+find . -iregex '.*truc.*' 2> /dev/null# Look for a regular expression in every repo from the repo in input
+baobab                  # Disk usage analyser
+gnome-disks             # Mount Unmount easily disks
+agi gnome-tweak-tool    # To remap the Caps Lock to the control key
 grep -v 'pattern' filename # matches all but (NOT) the pattern lines
-which command # locate a command
-chsh -s /usr/bin/zsh # change the default shell (with zsh, which needs to be installed already)
-sh -c blabla (voir help) # to execute from a file or something
-upgrade_oh_my_zsh           # check updates for oh my zsh
-agi git-core zsh    # to install both git-core and zsh,
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"         # to install oh my zsh
-agi fonts-powerline
+which command           # locate a command
+chsh -s /usr/bin/zsh    # change the default shell (with zsh, which needs to be installed already)
+sh -c blabla (voir help)# to execute from a file or something
+upgrade_oh_my_zsh       # check updates for oh my zsh
+j part_of_a_directory_name# move to that directory (you need first to have been at least once in that directory for it to work)

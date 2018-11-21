@@ -2,14 +2,14 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
-"  call vundle#begin()
+call vundle#begin()
 "  
 "  "" ==== PLUGINS ====
-"  Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 "  Plugin 'vim-scripts/L9'
 "  "Plugin 'tpope/vim-fugitive'
 "  ""Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-"  Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdtree'
 "  ""Plugin 'Valloric/YouCompleteMe'
 "  "Plugin 'airblade/vim-gitgutter'
 "  Plugin 'scrooloose/syntastic'
@@ -18,8 +18,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 "  "Plugin 'mattn/emmet-vim'
 "  "Plugin 'sjl/gundo.vim'
 "  Plugin 'easymotion/vim-easymotion'
-"  "Plugin 'tpope/vim-surround'
-"  Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'kien/ctrlp.vim'
 "  "Plugin 'godlygeek/tabular'
 "  "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "  "Plugin 'Valloric/YouCompleteMe'
@@ -32,6 +32,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 "  "" ==== END PLUGIN THEMES ====
 "  "
 "  "" ==== PLUGIN SYNTAXES ====
+Plugin 'vim-scripts/indentpython.vim'
 "  Plugin 'cakebaker/scss-syntax.vim'
 "  Plugin 'hdima/python-syntax'
 "  Plugin 'othree/yajs.vim'
@@ -41,7 +42,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 "  
 "  " ==== END PLUGINS ====
 "  
-"  call vundle#end()
+call vundle#end()
 filetype plugin indent on
 
 " ==== BASIC ====
@@ -54,6 +55,7 @@ set foldmethod=indent
 set foldlevel=0
 set ignorecase
 set smartcase
+set tagstack
 set clipboard=unnamedplus
 "colorscheme gruvbox
 "set guifont=Lucida_console:h9
@@ -66,6 +68,7 @@ set relativenumber
 set number
 set laststatus=2
 set smartindent
+set autoindent
 set st=4 sw=4 et
 let &colorcolumn="80"
 :set guioptions-=m  "remove menu bar
@@ -74,11 +77,23 @@ let &colorcolumn="80"
 :set guioptions-=L  "remove left-hand scroll bar
 :set lines=999 columns=999
 
+au BufNewfile, BufRead *.py
+        \ set tabstop=4
+        \ set softtabstop=4
+        \ set shifwidth=4
+        \ set textwidth=79
+        \ set expandtab
+        \ set autoindent
+        \ set filformat=unix
+
 " ==== NERDTREE ====
-"let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
+let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
 "let g:NERDTreeWinPos="left"
 "let g:NERDTreeDirArrows=0
-"map <C-t> :NERDTreeToggle<CR>
+map <C-t> :NERDTreeToggle<CR>
+
+" ==== CTRLP ====
+"let g:ctrlp_working_path_mode = '0'
 
 " ==== Syntastic ====
 " let g:syntastic_always_populate_loc_list = 1
@@ -104,7 +119,6 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-
 " ==== Motions remap ====
 nnoremap <C-Space> 079l
 nnoremap <C-C> I# <ESC>
@@ -119,6 +133,11 @@ nnoremap <space> zA
 nnoremap <Tab> cw<Tab>
 inoremap jj <ESC>
 noremap <F4> :set hlsearch! hlsearch?<CR>
+nnoremap <A-l> <C-PageDown>
+nnoremap <A-h> <C-PageUp>
+map <A-o> <C-]>
+map <A-j> :po<CR>
+map <A-k> :ta<CR>
 
 " Vimrc from the dotfiles repo of the creator of dotbot
 "    set nocompatible " not vi compatible

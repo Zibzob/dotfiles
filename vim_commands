@@ -15,3 +15,9 @@ gv                              # re select the last visual selection
 /\<toto\>                       # search for whole word toto (\< : starting, \> : ending)
 /\(\<\w\+\>\)\_s*\<\1\>         # search for duplicated words (separated by \s : space/tab, \_s : space/tab/new line)
 :vert ba, ba                    # split (vertically) in as many windows as buffers
+:-15,-4co.                      # copies from the relative lines 15 to 4 (above) to where the pointer is
+:h toto         CTRL-D          # to display the help topics related to "toto"
+alt o, alt j, alt k             # to jump to a tag (when the prompt is above the name), and go back and forth between the tags previously visited
+ctrl d, ctrl r (from ctrlp prompt) # toggle on/off the search by filename/path, with/without regexp
+:tabe, tabc, tabo               # to open a new tab window, close one, close all but the first
+alt-l, alt-h                    # to switch between tabs
