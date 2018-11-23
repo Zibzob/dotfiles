@@ -3,7 +3,7 @@ filetype off                  " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-  
+
 " ============================= PLUGINS =======================================
 Plugin 'VundleVim/Vundle.vim'
 "Plugin 'vim-scripts/L9'
@@ -24,6 +24,7 @@ Plugin 'kien/ctrlp.vim'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+"Plugin 'tmhedberg/SimpylFold'
 
 " ==== PLUGIN THEMES ====
 "Plugin 'vim-scripts/darktango.vim'
@@ -38,6 +39,7 @@ Plugin 'vim-scripts/indentpython.vim'
 "Plugin 'othree/yajs.vim'
 "Plugin 'mitsuhiko/vim-jinja'
 "Plugin 'evanmiller/nginx-vim-syntax'
+"Plugin 'python-mode/python-mode'
 " === END PLUGIN SYNTAXES ====
 
 " ==== END PLUGINS ====
@@ -74,6 +76,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set textwidth=79
 let &colorcolumn="80"
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
@@ -113,6 +116,8 @@ set noerrorbells visualbell t_vb=
 " open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
+set history=500
+set undolevels=500
 
 au BufNewfile, BufRead *.py
         \ set tabstop=4
@@ -146,6 +151,7 @@ nnoremap <Leader>h <C-W><C-H>
 nnoremap <C-O> <C-W><C-O>
 nnoremap <space> zA
 nnoremap <Tab> cw<Tab>
+" Apply vimrc changes whithout exiting it
 nnoremap <A-s> :source $MYVIMRC<CR>
 inoremap jj <ESC>
 noremap <F4> :set hlsearch! hlsearch?<CR>
@@ -164,6 +170,16 @@ map <A-k> :ta<CR>
 "nnoremap <Leader>h g,
 nnoremap <C-J> g;
 nnoremap <C-K> g,
+" sort alphabetically the selectionned columns
+vnoremap <Leader>s :sort<CR>
+" keeps the selection selected when indenting
+"vnoremap < <gv
+"vnoremap > >gv
+" shows trailing whitespaces
+nnoremap <Leader>w /\s\+$<CR>
+" Paragraphs formatting
+nmap Q gqap
+vmap Q gq
 
 " ============================= PLUGINS' ======================================
 let mapleader = "ç"
@@ -177,7 +193,7 @@ map <C-t> :NERDTreeToggle<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
 
 " ==== CTRLP ====
-nnoremap <C-p> :CtrlP ~<CR>
+nnoremap <A-p> :CtrlP ~<CR>
 "let g:ctrlp_working_path_mode = '0'
 "let g:ctrlp_switch_buffer = 0
 "let g:ctrlp_show_hidden = 1
@@ -212,6 +228,11 @@ nnoremap <Leader>i :SyntasticInfo<CR>
 "let g:EasyMotion_smartcase = 1
 nmap f <Plug>(easymotion-s)
 "map <Space> <Plug>(easymotion-prefix)
+
+" ==== EASYMOTION ====
+"let g:SimpylFold_docstring_preview=1
+"let g:SimpylFold_fold_docstring=0
+
 
 " ==== INCSEARCH ====
 "map / <Plug>(incsearch-forward)

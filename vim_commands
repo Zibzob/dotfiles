@@ -19,8 +19,10 @@ gv                              # re select the last visual selection
 :h toto         CTRL-D          # to display the help topics related to "toto"
 alt o, alt j, alt k             # to jump to a tag (when the prompt is above the name), and go back and forth between the tags previously visited
 ctrl d, ctrl r (from ctrlp prompt) # toggle on/off the search by filename/path, with/without regexp
-:tabe, tabc, tabo               # to open a new tab window, close one, close all but the first
-alt-l, alt-h                    # to switch between tabs
+:tabe, tabc, tabo               # to open a new tab window, close one, close all but the first, tabs are great if you need to edit a buffer and you don't want to spoil your window splits/organisation, or to have several windows layout at the same time and to easily switch them
+leader-l, leader-h              # to switch between tabs
+alt-l, alt-h                    # go back and forth between jump positions
 K                               # Opens the help menu of the expression below the cursor
 ç                               # leader 
 çf                              # open nerdtree at the current file
+
