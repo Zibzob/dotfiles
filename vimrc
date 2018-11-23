@@ -3,49 +3,49 @@ filetype off                  " required
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-"  
-"  "" ==== PLUGINS ====
+  
+" ============================= PLUGINS =======================================
 Plugin 'VundleVim/Vundle.vim'
-"  Plugin 'vim-scripts/L9'
-"  "Plugin 'tpope/vim-fugitive'
-"  ""Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'vim-scripts/L9'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdtree'
-"  ""Plugin 'Valloric/YouCompleteMe'
-"  "Plugin 'airblade/vim-gitgutter'
-"  Plugin 'scrooloose/syntastic'
-"  "Plugin 'christoomey/vim-conflicted'
-"  "Plugin 'terryma/vim-multiple-cursors'
-"  "Plugin 'mattn/emmet-vim'
-"  "Plugin 'sjl/gundo.vim'
-"  Plugin 'easymotion/vim-easymotion'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/syntastic'
+"Plugin 'christoomey/vim-conflicted'
+"Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'mattn/emmet-vim'
+"Plugin 'sjl/gundo.vim'
+Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
-"  "Plugin 'godlygeek/tabular'
-"  "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
-"  "Plugin 'Valloric/YouCompleteMe'
-"  "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
-"  "
-"  "" ==== PLUGIN THEMES ====
-"  "Plugin 'vim-scripts/darktango.vim'
-"  "Plugin 'jonathanfilip/vim-lucius'
-"  Plugin 'morhetz/gruvbox'
-"  "" ==== END PLUGIN THEMES ====
-"  "
-"  "" ==== PLUGIN SYNTAXES ====
+"Plugin 'godlygeek/tabular'
+"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
+
+" ==== PLUGIN THEMES ====
+"Plugin 'vim-scripts/darktango.vim'
+"Plugin 'jonathanfilip/vim-lucius'
+Plugin 'morhetz/gruvbox'
+" ==== END PLUGIN THEMES ====
+
+"" ==== PLUGIN SYNTAXES ====
 Plugin 'vim-scripts/indentpython.vim'
-"  Plugin 'cakebaker/scss-syntax.vim'
-"  Plugin 'hdima/python-syntax'
-"  Plugin 'othree/yajs.vim'
-"  Plugin 'mitsuhiko/vim-jinja'
-"  Plugin 'evanmiller/nginx-vim-syntax'
-"  "" === END PLUGIN SYNTAXES ====
-"  
-"  " ==== END PLUGINS ====
-"  
+"Plugin 'cakebaker/scss-syntax.vim'
+"Plugin 'hdima/python-syntax'
+"Plugin 'othree/yajs.vim'
+"Plugin 'mitsuhiko/vim-jinja'
+"Plugin 'evanmiller/nginx-vim-syntax'
+" === END PLUGIN SYNTAXES ====
+
+" ==== END PLUGINS ====
+
 call vundle#end()
 filetype plugin indent on
 
-" ==== BASIC ====
+" ============================= BASIC =========================================
 " about the indent settings for python, see the google python indent setting
 " file (il faut l'intégrer dans le file .python dans le dossier indent de
 " l'installation de vim
@@ -57,25 +57,62 @@ set ignorecase
 set smartcase
 set tagstack
 set clipboard=unnamedplus
-"colorscheme gruvbox
+colorscheme gruvbox
 "set guifont=Lucida_console:h9
 "set fillchars+=vert:\$
 syntax enable
-"set background=dark
-set ruler
+set background=dark
+set ruler " Position of the cursor (lines, columns)
 set hidden
-set relativenumber
-set number
+set relativenumber " Relative line numbering
+set number " Line numbering
 set laststatus=2
 set smartindent
 set autoindent
-set st=4 sw=4 et
+" use 4 spaces instead of tabs during formatting
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 let &colorcolumn="80"
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-:set lines=999 columns=999
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+set lines=999 columns=999
+set hlsearch
+" Clean up the . directory by putting backup, swap, undo files in another dir
+set undofile  " Maintain undo history between sessions
+set backup
+set undodir=~/.vim/vim_files  " Don t forget to create the directory
+set directory=~/.vim/vim_files  " Don t forget to create the directory
+set backupdir=~/.vim/vim_files  " Don t forget to create the directory
+
+set incsearch " Incremental search (as string is being typed)
+"    set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
+set lbr " line break
+set scrolloff=0 " show lines above and below cursor (when possible)
+set showcmd " show current command
+set backspace=indent,eol,start " allow backspacing over everything
+set lazyredraw " skip redrawing screen in some cases
+set autochdir " automatically set current directory to directory of last opened file
+set history=8192 " more history
+set nojoinspaces " suppress inserting two spaces between sentences
+"" tab completion for files/buffers
+set wildmode=longest,list
+set wildmenu
+"set mouse+=a " enable mouse mode (scrolling, selection, etc)
+"" highlight current line, but only in active window
+augroup CursorLineOnlyInActiveWindow
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
+augroup END
+" disable audible bell
+set noerrorbells visualbell t_vb=
+" open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
 
 au BufNewfile, BufRead *.py
         \ set tabstop=4
@@ -86,34 +123,8 @@ au BufNewfile, BufRead *.py
         \ set autoindent
         \ set filformat=unix
 
-" ==== NERDTREE ====
-let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
-"let g:NERDTreeWinPos="left"
-"let g:NERDTreeDirArrows=0
-map <C-t> :NERDTreeToggle<CR>
 
-" ==== CTRLP ====
-"let g:ctrlp_working_path_mode = '0'
-
-" ==== Syntastic ====
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-" " let g:syntastic_javascript_checkers = ['eslint']
-" " let g:syntastic_javascript_mri_args = "--config=$HOME/.jshintrc"
-" let g:syntastic_python_checkers = [ 'pylint', 'flake8', 'pep8', 'pyflakes', 'python']
-" "let g:syntastic_yaml_checkers = ['jsyaml']
-" "let g:syntastic_html_tidy_exec = 'tidy5'
-" 
-" ==== Easymotion ====
-"let g:EasyMotion_do_mapping = 0
-"let g:EasyMotion_smartcase = 1
-"nmap f <Plug>(easymotion-s)
-
+" ============================= REMAPS ========================================
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
@@ -124,216 +135,105 @@ nnoremap <C-Space> 079l
 nnoremap <C-C> I# <ESC>
 nnoremap <C-CR> o<ESC>k
 nnoremap <S-CR> O<ESC>j
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <Leader>j <C-W><C-J>
+nnoremap <Leader>k <C-W><C-K>
+nnoremap <Leader>l <C-W><C-L>
+nnoremap <Leader>h <C-W><C-H>
+"nnoremap <C-J> <C-W><C-J>
+"nnoremap <C-K> <C-W><C-K>
+"nnoremap <C-L> <C-W><C-L>
+"nnoremap <C-H> <C-W><C-H>
 nnoremap <C-O> <C-W><C-O>
 nnoremap <space> zA
 nnoremap <Tab> cw<Tab>
+nnoremap <A-s> :source $MYVIMRC<CR>
 inoremap jj <ESC>
 noremap <F4> :set hlsearch! hlsearch?<CR>
-nnoremap <A-l> <C-PageDown>
-nnoremap <A-h> <C-PageUp>
+" Switch to next/previous tab
+"nnoremap <A-l> <C-PageDown>
+"nnoremap <A-h> <C-PageUp>
+" Switch to next/previous buffer
+nnoremap <A-l> :bn<CR>
+nnoremap <A-h> :bp<CR>
+" Jumps to a tag, and between (back and forth) tags already visited
 map <A-o> <C-]>
 map <A-j> :po<CR>
 map <A-k> :ta<CR>
+" go to previous/next jump position
+"nnoremap <Leader>l g;
+"nnoremap <Leader>h g,
+nnoremap <C-J> g;
+nnoremap <C-K> g,
 
-" Vimrc from the dotfiles repo of the creator of dotbot
-"    set nocompatible " not vi compatible
-"    
-"    "--------------
-"    " Load pathogen
-"    "--------------
-"    runtime bundle/vim-pathogen/autoload/pathogen.vim
-"    call pathogen#infect()
-"    call pathogen#helptags()
-"    
-"    "------------------
-"    " Syntax and indent
-"    "------------------
-"    syntax on " turn on syntax highlighting
-"    set showmatch " show matching braces when text indicator is over them
-"    
-"    " highlight current line, but only in active window
-"    augroup CursorLineOnlyInActiveWindow
-"        autocmd!
-"        autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-"        autocmd WinLeave * setlocal nocursorline
-"    augroup END
-"    
-"    " vim can autodetect this based on $TERM (e.g. 'xterm-256color')
-"    " but it can be set to force 256 colors
-"    " set t_Co=256
-"    if has('gui_running')
-"        colorscheme solarized
-"        let g:lightline = {'colorscheme': 'solarized'}
-"    elseif &t_Co < 256
-"        colorscheme default
-"        set nocursorline " looks bad in this mode
-"    else
-"        set background=dark
-"        let g:solarized_termcolors=256 " instead of 16 color with mapping in terminal
-"        colorscheme solarized
-"        " customized colors
-"        highlight SignColumn ctermbg=234
-"        highlight StatusLine cterm=bold ctermfg=245 ctermbg=235
-"        highlight StatusLineNC cterm=bold ctermfg=245 ctermbg=235
-"        let g:lightline = {'colorscheme': 'dark'}
-"        highlight SpellBad cterm=underline
-"    endif
-"    
-"    filetype plugin indent on " enable file type detection
-"    set autoindent
-"    
-"    "---------------------
-"    " Basic editing config
-"    "---------------------
-"    set nu " number lines
-"    set rnu " relative line numbering
-"    set incsearch " incremental search (as string is being typed)
-"    set hls " highlight search
-"    set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
-"    set lbr " line break
-"    set ruler " show current position in file
-"    set scrolloff=5 " show lines above and below cursor (when possible)
-"    set noshowmode " hide mode
-"    set laststatus=2
-"    set showcmd " show current command
-"    set backspace=indent,eol,start " allow backspacing over everything
-"    set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-"    set lazyredraw " skip redrawing screen in some cases
-"    set autochdir " automatically set current directory to directory of last opened file
-"    set hidden " allow auto-hiding of edited buffers
-"    set history=8192 " more history
-"    set nojoinspaces " suppress inserting two spaces between sentences
-"    " use 4 spaces instead of tabs during formatting
-"    set expandtab
-"    set tabstop=4
-"    set shiftwidth=4
-"    set softtabstop=4
-"    " smart case-sensitive search
-"    set ignorecase
-"    set smartcase
-"    " tab completion for files/bufferss
-"    set wildmode=longest,list
-"    set wildmenu
-"    set mouse+=a " enable mouse mode (scrolling, selection, etc)
-"    if &term =~ '^screen'
-"        " tmux knows the extended mouse mode
-"        set ttymouse=xterm2
-"    endif
-"    
-"    "--------------------
-"    " Misc configurations
-"    "--------------------
-"    
-"    " unbind keys
-"    map <C-a> <Nop>
-"    map <C-x> <Nop>
-"    
-"    " disable audible bell
-"    set noerrorbells visualbell t_vb=
-"    
-"    " open new split panes to right and bottom, which feels more natural
-"    set splitbelow
-"    set splitright
-"    
-"    " quicker window movement
-"    nnoremap <C-j> <C-w>j
-"    nnoremap <C-k> <C-w>k
-"    nnoremap <C-h> <C-w>h
-"    nnoremap <C-l> <C-w>l
-"    
-"    " toggle relative numbering
-"    nnoremap <C-n> :set rnu!<CR>
-"    
-"    " save read-only files
-"    command -nargs=0 Sudow w !sudo tee % >/dev/null
-"    
-"    "---------------------
-"    " Plugin configuration
-"    "---------------------
-"    
-"    " nerdtree
-"    nnoremap <Leader>n :NERDTreeToggle<CR>
-"    nnoremap <Leader>f :NERDTreeFind<CR>
-"    
-"    " tagbar
-"    nnoremap <Leader>t :TagbarToggle<CR>
-"    
-"    " gundo
-"    nnoremap <Leader>u :GundoToggle<CR>
-"    if has('python3')
-"        let g:gundo_prefer_python3 = 1
-"    endif
-"    
-"    " ctrlp
-"    nnoremap ; :CtrlPBuffer<CR>
-"    let g:ctrlp_switch_buffer = 0
-"    let g:ctrlp_show_hidden = 1
-"    
-"    " ag
-"    let g:ag_mapping_message=0
-"    command -nargs=+ Gag Gcd | Ag! <args>
-"    nnoremap K :Gag "\b<C-R><C-W>\b"<CR>:cw<CR>
-"    if executable('ag')
-"        let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-"    endif
-"    
-"    " syntastic
-"    let g:syntastic_always_populate_loc_list = 1
-"    let g:syntastic_auto_loc_list = 1
-"    let g:syntastic_check_on_wq = 0
-"    let g:syntastic_mode_map = {
-"        \ 'mode': 'passive',
-"        \ 'active_filetypes': [],
-"        \ 'passive_filetypes': []
-"    \}
-"    nnoremap <Leader>s :SyntasticCheck<CR>
-"    nnoremap <Leader>r :SyntasticReset<CR>
-"    nnoremap <Leader>i :SyntasticInfo<CR>
-"    nnoremap <Leader>m :SyntasticToggleMode<CR>
-"    
-"    " easymotion
-"    map <Space> <Plug>(easymotion-prefix)
-"    
-"    " incsearch
-"    map / <Plug>(incsearch-forward)
-"    map ? <Plug>(incsearch-backward)
-"    map g/ <Plug>(incsearch-stay)
-"    
-"    " incsearch-easymotion
-"    map z/ <Plug>(incsearch-easymotion-/)
-"    map z? <Plug>(incsearch-easymotion-?)
-"    map zg/ <Plug>(incsearch-easymotion-stay)
-"    
-"    " argwrap
-"    nnoremap <Leader>w :ArgWrap<CR>
-"    
-"    noremap <Leader>x :OverCommandLine<CR>
-"    
-"    " markdown
-"    let g:markdown_fenced_languages = [
-"        \ 'bash=sh',
-"        \ 'c',
-"        \ 'coffee',
-"        \ 'erb=eruby',
-"        \ 'javascript',
-"        \ 'json',
-"        \ 'perl',
-"        \ 'python',
-"        \ 'ruby',
-"        \ 'yaml',
-"        \ 'go',
-"    \]
-"    
-"    "---------------------
-"    " Local customizations
-"    "---------------------
-"    
-"    " local customizations in ~/.vimrc_local
-"    let $LOCALFILE=expand("~/.vimrc_local")
-"    if filereadable($LOCALFILE)
-"        source $LOCALFILE
-"    endif
+" ============================= PLUGINS' ======================================
+let mapleader = "ç"
+
+" ==== NERDTREE ====
+let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
+let g:NERDTreeWinPos="left"
+let g:NERDTreeDirArrows=0
+map <C-t> :NERDTreeToggle<CR>
+"nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
+
+" ==== CTRLP ====
+nnoremap <C-p> :CtrlP ~<CR>
+"let g:ctrlp_working_path_mode = '0'
+"let g:ctrlp_switch_buffer = 0
+"let g:ctrlp_show_hidden = 1
+
+" ==== SYNTASTIC ====
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_javascript_mri_args = "--config=$HOME/.jshintrc"
+"let g:syntastic_python_checkers = [ 'pylint', 'flake8', 'pep8', 'pyflakes', 'python']
+"let g:syntastic_yaml_checkers = ['jsyaml']
+"let g:syntastic_html_tidy_exec = 'tidy5'
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_mode_map = {
+"    \ 'mode': 'passive',
+"    \ 'active_filetypes': [],
+"    \ 'passive_filetypes': []
+"\}
+nnoremap <Leader>s :SyntasticCheck<CR>
+nnoremap <Leader>r :SyntasticReset<CR>
+nnoremap <Leader>i :SyntasticInfo<CR>
+"
+" ==== EASYMOTION ====
+"let g:EasyMotion_do_mapping = 0
+"let g:EasyMotion_smartcase = 1
+nmap f <Plug>(easymotion-s)
+"map <Space> <Plug>(easymotion-prefix)
+
+" ==== INCSEARCH ====
+"map / <Plug>(incsearch-forward)
+"map ? <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
+"
+" ==== INCSEARCH-EASYMOTION ====
+"map z/ <Plug>(incsearch-easymotion-/)
+"map z? <Plug>(incsearch-easymotion-?)
+"map zg/ <Plug>(incsearch-easymotion-stay)
+"
+" ==== MARKDOWN ====
+"let g:markdown_fenced_languages = [
+"    \ 'bash=sh',
+"    \ 'c',
+"    \ 'coffee',
+"    \ 'erb=eruby',
+"    \ 'javascript',
+"    \ 'json',
+"    \ 'perl',
+"    \ 'python',
+"    \ 'ruby',
+"    \ 'yaml',
+"    \ 'go',
+"\]
