@@ -25,6 +25,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'tmhedberg/SimpylFold'
+Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'tomtom/tcomment_vim'
 
 " ==== PLUGIN THEMES ====
 "Plugin 'vim-scripts/darktango.vim'
@@ -48,6 +50,7 @@ call vundle#end()
 filetype plugin indent on
 
 " ============================= BASIC =========================================
+let mapleader = " "
 " about the indent settings for python, see the google python indent setting
 " file (il faut l'intégrer dans le file .python dans le dossier indent de
 " l'installation de vim
@@ -102,8 +105,9 @@ set autochdir " automatically set current directory to directory of last opened 
 set history=8192 " more history
 set nojoinspaces " suppress inserting two spaces between sentences
 "" tab completion for files/buffers
-set wildmode=longest,list
 set wildmenu
+"set wildmode=longest,list
+set wildmode=list,longest,full
 "set mouse+=a " enable mouse mode (scrolling, selection, etc)
 "" highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -144,13 +148,14 @@ nnoremap <Leader>j <C-W><C-J>
 nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>l <C-W><C-L>
 nnoremap <Leader>h <C-W><C-H>
+nnoremap <Leader>o <C-W><C-O>
 "nnoremap <C-J> <C-W><C-J>
 "nnoremap <C-K> <C-W><C-K>
 "nnoremap <C-L> <C-W><C-L>
 "nnoremap <C-H> <C-W><C-H>
-nnoremap <C-O> <C-W><C-O>
+"nnoremap <C-O> <C-W><C-O>
 nnoremap <space> zA
-nnoremap <Tab> cw<Tab>
+"nnoremap <Tab> cw<Tab>
 " Apply vimrc changes whithout exiting it
 nnoremap <A-s> :source $MYVIMRC<CR>
 inoremap jj <ESC>
@@ -171,7 +176,7 @@ map <A-k> :ta<CR>
 nnoremap <C-J> g;
 nnoremap <C-K> g,
 " sort alphabetically the selectionned columns
-vnoremap <Leader>s :sort<CR>
+vnoremap <Leader>t :sort<CR>
 " keeps the selection selected when indenting
 "vnoremap < <gv
 "vnoremap > >gv
@@ -182,7 +187,6 @@ nmap Q gqap
 vmap Q gq
 
 " ============================= PLUGINS' ======================================
-let mapleader = "ç"
 
 " ==== NERDTREE ====
 let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
@@ -226,13 +230,19 @@ nnoremap <Leader>i :SyntasticInfo<CR>
 " ==== EASYMOTION ====
 "let g:EasyMotion_do_mapping = 0
 "let g:EasyMotion_smartcase = 1
-nmap f <Plug>(easymotion-s)
+nmap F <Plug>(easymotion-s)
 "map <Space> <Plug>(easymotion-prefix)
 
 " ==== EASYMOTION ====
 "let g:SimpylFold_docstring_preview=1
 "let g:SimpylFold_fold_docstring=0
 
+" ==== EASYMOTION ====
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" ==== VIM-BETTER-WHITESPACE ====
+"let g:EnableWhitespace = 1
 
 " ==== INCSEARCH ====
 "map / <Plug>(incsearch-forward)
