@@ -47,3 +47,5 @@ done
 
 # Create symbolic link to the 1To hard drive
 ln -s /media/aurelf/Data ~/Data
+# Create symbolic link to the .ipython_config.py file
+ln -s $dir/ipython_config.py ~/.ipython/profile_default/ipython_config.py
