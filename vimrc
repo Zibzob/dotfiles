@@ -27,6 +27,8 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'tmhedberg/SimpylFold'
 Plugin 'ntpeters/vim-better-whitespace'
 "Plugin 'tomtom/tcomment_vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " ==== PLUGIN THEMES ====
 "Plugin 'vim-scripts/darktango.vim'
@@ -36,6 +38,7 @@ Plugin 'morhetz/gruvbox'
 
 "" ==== PLUGIN SYNTAXES ====
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
 "Plugin 'cakebaker/scss-syntax.vim'
 "Plugin 'hdima/python-syntax'
 "Plugin 'othree/yajs.vim'
@@ -55,6 +58,7 @@ let mapleader = " "
 " file (il faut l'intégrer dans le file .python dans le dossier indent de
 " l'installation de vim
 "set nofoldenable
+set path+=**
 set encoding=utf-8
 set foldmethod=indent
 set foldlevel=0
@@ -122,6 +126,7 @@ set splitbelow
 set splitright
 set history=500
 set undolevels=500
+"let python_highlight_all=1
 
 au BufNewfile, BufRead *.py
         \ set tabstop=4
@@ -167,9 +172,9 @@ noremap <F4> :set hlsearch! hlsearch?<CR>
 nnoremap <A-l> :bn<CR>
 nnoremap <A-h> :bp<CR>
 " Jumps to a tag, and between (back and forth) tags already visited
-map <A-o> <C-]>
-map <A-j> :po<CR>
-map <A-k> :ta<CR>
+noremap <A-o> <C-]>
+noremap <A-j> :po<CR>
+noremap <A-k> :ta<CR>
 " go to previous/next jump position
 "nnoremap <Leader>l g;
 "nnoremap <Leader>h g,
@@ -183,8 +188,8 @@ vnoremap <Leader>t :sort<CR>
 " shows trailing whitespaces
 nnoremap <Leader>w /\s\+$<CR>
 " Paragraphs formatting
-nmap Q gqap
-vmap Q gq
+nnoremap Q gqap
+vnoremap Q gq
 
 " ============================= PLUGINS' ======================================
 
@@ -212,7 +217,7 @@ nnoremap <A-p> :CtrlP ~<CR>
 "set statusline+=%*
 "let g:syntastic_javascript_checkers = ['eslint']
 "let g:syntastic_javascript_mri_args = "--config=$HOME/.jshintrc"
-"let g:syntastic_python_checkers = [ 'pylint', 'flake8', 'pep8', 'pyflakes', 'python']
+let g:syntastic_python_checkers = [ 'pylint', 'flake8', 'pep8', 'pyflakes', 'python']
 "let g:syntastic_yaml_checkers = ['jsyaml']
 "let g:syntastic_html_tidy_exec = 'tidy5'
 "let g:syntastic_always_populate_loc_list = 1
@@ -233,11 +238,14 @@ nnoremap <Leader>i :SyntasticInfo<CR>
 nmap F <Plug>(easymotion-s)
 "map <Space> <Plug>(easymotion-prefix)
 
-" ==== EASYMOTION ====
+" ==== GRUVBOX ====
+let g:gruvbox_contrast_dark='medium' " soft, medium (default) or hard
+
+" ==== SIMPYLFOLD ====
 "let g:SimpylFold_docstring_preview=1
 "let g:SimpylFold_fold_docstring=0
 
-" ==== EASYMOTION ====
+" ==== YOUCOMPLETEME ====
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 

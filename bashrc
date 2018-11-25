@@ -31,3 +31,6 @@ source $dir/prompt.bash
 # Set vi mode for bash 
 set editing-mode vi
 
+
+# added by Miniconda3 installer
+export PATH="/home/aurelf/miniconda3/bin:$PATH"

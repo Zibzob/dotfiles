@@ -19,7 +19,7 @@ cd ./toto               # from current folder
 cd ../toto              # from parent folder
 pwd                     # Print Working Directory
 !!                      # repeat command
-sudo totocommand        # super user (give all rights) 
+sudo totocommand        # super user (give all rights)
 sudo su                 # puts you in super user mode all the time
 su aurelien             # puts you in aurelien user mode
 apt-get install toto    # install toto, if toto = software present in the repository of ubuntu
@@ -33,8 +33,8 @@ sudo dpkg -i path/name.deb # to install a package dl from internet (not availabl
 # .deb is the correct extension for Ub (dont take .rpm -> for fedora/redhat)
 sudo gvim /usr/share/X11/xkb/symbols/pc # pour remap keys from keyboard
 history | grep toto     # display command with toto from the history of commands
-locate fichier.ext      # to locate a file (see help) 
-ps                      # 
+locate fichier.ext      # to locate a file (see help)
+ps                      #
 top                     # lists all active processus
 lsusb                   # check usb port to see what is connected
 lspci                   # check pci devices, if they are connected etc
@@ -58,7 +58,7 @@ find -size (-)1M        # look for files (under) over 1 megabyte
 find -not -size (-)1M   # look for files not (under) over 1 megabyte
 find -maxdepht n etc    # limit the recursive search to n dir
 blkid                   # shows partitions and type of partition (ext4, swap...)
-conda create --name toto python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn # pour creer un environment python
+conda create --name toto python pandas scikit-learn matplotlib ipython jupyter keras seaborn # pour creer un environment python
 conda create --name toto python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn gym# pour creer un environment python
 conda create --name pfr python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn selenium theano lasagne # pour creer un environment python
 convert -density 300 totoInput.pdf -quality 90 totoOutput.jpeg  - transform files between several different formats
@@ -112,3 +112,5 @@ chsh -s /usr/bin/zsh    # change the default shell (with zsh, which needs to be 
 sh -c blabla (voir help)# to execute from a file or something
 upgrade_oh_my_zsh       # check updates for oh my zsh
 j part_of_a_directory_name# move to that directory (you need first to have been at least once in that directory for it to work)
+tree . -L 2            # displays the tree from given directory to the given depth
+viewnior image.jpg            # Displays/shows images/pictures
