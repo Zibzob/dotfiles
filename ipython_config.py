@@ -1,8 +1,42 @@
 # Configuration file for ipython.
+c = get_config()
 
 #------------------------------------------------------------------------------
 # InteractiveShellApp(Configurable) configuration
 #------------------------------------------------------------------------------
+###############################################################################
+# sample ipython_config.py ===================================================
+c.TerminalIPythonApp.display_banner = True
+c.InteractiveShellApp.log_level = 20
+c.InteractiveShellApp.extensions = [
+    'myextension'
+]
+c.InteractiveShellApp.exec_lines = [
+    'import numpy',
+    'import scipy'
+]
+c.InteractiveShellApp.exec_files = [
+    'mycode.py',
+    'fancy.ipy'
+]
+c.InteractiveShell.autoindent = True
+c.InteractiveShell.colors = 'LightBG'
+c.InteractiveShell.confirm_exit = False
+c.InteractiveShell.deep_reload = True
+c.InteractiveShell.xmode = 'Context'
+
+c.PromptManager.in_template  = 'In [\#]: '
+c.PromptManager.in2_template = '   .\D.: '
+c.PromptManager.out_template = 'Out[\#]: '
+c.PromptManager.justify = True
+
+c.PrefilterManager.multi_line_specials = True
+
+c.AliasManager.user_aliases = [
+ ('la', 'ls -al')
+]
+# sample ipython_config.py ===================================================
+###############################################################################
 
 ## A Mixin for applications that start InteractiveShell instances.
 #  
@@ -231,7 +265,7 @@
 #c.InteractiveShell.object_info_string_level = 0
 
 ## Automatically call the pdb debugger after every exception.
-#c.InteractiveShell.pdb = False
+c.InteractiveShell.pdb = True
 
 ## Deprecated since IPython 4.0 and ignored since 5.0, set
 #  TerminalInteractiveShell.prompts object directly.

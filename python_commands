@@ -229,6 +229,12 @@ dir(ma_voiture) # to check the methods of an object
 ma_voiture.__dict__ # to check the attributes of an object
 
 
+# DEBUGGING
+# ============================================================================================
+# =============================================
+pdb # toggles the interactive ipython debugger
+debug # retroactively enters the debugger (after a run command)
+
 
 #########################################################################################
 # DATA SCIENCE

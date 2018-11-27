@@ -29,4 +29,19 @@ K                               # Opens the help menu of the expression below th
 " "                             # leader
 leader f                        # open nerdtree at the current file
 :StripWhitespace                # get rid of all the trailing white spaces (or just the selected lines)
-
+leader c leader                 # comment the selected lines
+F7                              # to run the flake8 plugin check (PEP8 and stuff)
+:find partNameFile, :b same     # search for, open directly (if existing and unique) the file given in input
+ga                              # prints the ascii value of the character under the cursor
+:MakeTags                       # create tags recursively from the working directory (or see bash_commands --> ctags -R . in the shell directly)
+g] (equiv à :ts {ident})        # displays a list of all the tags available corresponding to the word under the cursor
+:setlocal spell spelllang=fr    # enable the spell checker
+]s, [s                          # next/previous spell error
+{visual of a word} zg, zw       # add the selected word to the current dictionary (mark it as "good"/"bad")
+{insert}CTRL-x CTRL-f           # switch to directories alone (not with files)
+:read {filename}                # copies whatever is in the target file in the current file
+:h n_toto (default), i_, v_, c_ # search through help for the command toto in normal/insert/visual etc mode
+:helpgrep (helpg), :helpt etc   # helpg "topic" search through all the help files about topic regex(?)
+:cl, cn/cp, cc number, cope     # after a helpgrep/helpg command, lists all answers, go to the next/previous, to a specific one, open the list in a window
+:map                            # lists all the mappings(?), to be looked deeper into it
+gf                              # opens the file under/after the cursor in a buffer

@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
             Commandes de base en R
 
 ?Control                - opens help about control structures (loops , condition...)

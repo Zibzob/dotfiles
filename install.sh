@@ -19,6 +19,7 @@ sudo apt-get install git-core
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 sudo apt-get install fonts-powerline
 sudo apt-get install autojump
+sudo apt-get install exuberant-ctags
 
 # Upgrade things
 upgrade_oh_my_zsh

@@ -114,3 +114,6 @@ upgrade_oh_my_zsh       # check updates for oh my zsh
 j part_of_a_directory_name# move to that directory (you need first to have been at least once in that directory for it to work)
 tree . -L 2            # displays the tree from given directory to the given depth
 viewnior image.jpg            # Displays/shows images/pictures
+ctags -R .              # create recursively tags from the files in the current directory
+iftop               # to track/monitor/display network traffic bandwidth
+man -k toto           # grep through user manuals, larger fishing in help files

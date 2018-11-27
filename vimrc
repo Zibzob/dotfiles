@@ -13,19 +13,21 @@ Plugin 'scrooloose/nerdtree'
 "Plugin 'Valloric/YouCompleteMe'
 "Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
 "Plugin 'christoomey/vim-conflicted'
 "Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'mattn/emmet-vim'
 "Plugin 'sjl/gundo.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'kien/ctrlp.vim'
 "Plugin 'godlygeek/tabular'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 "Plugin 'tmhedberg/SimpylFold'
-Plugin 'ntpeters/vim-better-whitespace'
+"Plugin 'ntpeters/vim-better-whitespace'
 "Plugin 'tomtom/tcomment_vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -60,6 +62,12 @@ let mapleader = " "
 "set nofoldenable
 set path+=**
 set encoding=utf-8
+set list  " to see the end of lines
+if &listchars ==# 'eol:$'
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+
+"set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
 set foldmethod=indent
 set foldlevel=0
 set ignorecase
@@ -99,7 +107,6 @@ set directory=~/.vim/vim_files  " Don t forget to create the directory
 set backupdir=~/.vim/vim_files  " Don t forget to create the directory
 
 set incsearch " Incremental search (as string is being typed)
-"    set listchars=tab:>>,nbsp:~ " set list to see tabs and non-breakable spaces
 set lbr " line break
 set scrolloff=0 " show lines above and below cursor (when possible)
 set showcmd " show current command
@@ -107,6 +114,7 @@ set backspace=indent,eol,start " allow backspacing over everything
 set lazyredraw " skip redrawing screen in some cases
 set autochdir " automatically set current directory to directory of last opened file
 set history=8192 " more history
+set undolevels=500
 set nojoinspaces " suppress inserting two spaces between sentences
 "" tab completion for files/buffers
 set wildmenu
@@ -115,28 +123,31 @@ set wildmode=list,longest,full
 "set mouse+=a " enable mouse mode (scrolling, selection, etc)
 "" highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
+autocmd!
+autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
 augroup END
 " disable audible bell
 set noerrorbells visualbell t_vb=
 " open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
-set history=500
-set undolevels=500
 "let python_highlight_all=1
+if v:version > 703 || v:version == 703 && has("patch541")
+set formatoptions+=j " Delete comment character when joining commented lines
+endif
 
 au BufNewfile, BufRead *.py
-        \ set tabstop=4
-        \ set softtabstop=4
-        \ set shifwidth=4
-        \ set textwidth=79
-        \ set expandtab
-        \ set autoindent
-        \ set filformat=unix
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shifwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set filformat=unix
 
+"autocmd BufWritePost *.py call Flake8() " Call a flake8 check every time I save
+command! MakeTags !ctags -R .
 
 " ============================= REMAPS ========================================
 nmap <silent> <A-Up> :wincmd k<CR>
@@ -173,6 +184,7 @@ nnoremap <A-l> :bn<CR>
 nnoremap <A-h> :bp<CR>
 " Jumps to a tag, and between (back and forth) tags already visited
 noremap <A-o> <C-]>
+"noremap <A-o> g]
 noremap <A-j> :po<CR>
 noremap <A-k> :ta<CR>
 " go to previous/next jump position
@@ -237,6 +249,7 @@ nnoremap <Leader>i :SyntasticInfo<CR>
 "let g:EasyMotion_smartcase = 1
 nmap F <Plug>(easymotion-s)
 "map <Space> <Plug>(easymotion-prefix)
+let g:EasyMotion_keys = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789d'
 
 " ==== GRUVBOX ====
 let g:gruvbox_contrast_dark='medium' " soft, medium (default) or hard
@@ -248,6 +261,18 @@ let g:gruvbox_contrast_dark='medium' " soft, medium (default) or hard
 " ==== YOUCOMPLETEME ====
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" ==== PYTHON-MODE ====
+"let g:pymode = 1 " Turn on the whole plugin
+"let g:pymode_warnings = 1  Turn off plugins's warnings
+"let g:pymode_paths = []  Add paths to sys.path
+"let g:pymode_trim_whitespaces = 1 " Trim unused white spaces on save
+"let g:pymode_doc = 1
+"let g:pymode_lint = 1
+"let g:pymode_lint_on_write = 1
+"let g:pymode_lint_unmodified = 0
+"let g:pymode_lint_on_fly = 0
+"let g:pymode_python = 'python3'
 
 " ==== VIM-BETTER-WHITESPACE ====
 "let g:EnableWhitespace = 1
