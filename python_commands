@@ -233,7 +233,9 @@ ma_voiture.__dict__ # to check the attributes of an object
 # ============================================================================================
 # =============================================
 pdb # toggles the interactive ipython debugger
-debug # retroactively enters the debugger (after a run command)
+debug # retroactively enters the pdb debugger (after a run command)
+import ipdb        ipdb.set_trace() # stops the run at the trace and launch the pdb debugger
+vars() # returns the variables which were defined when the error occured and their value
 
 
 #########################################################################################
@@ -246,6 +248,13 @@ debug # retroactively enters the debugger (after a run command)
 # ============================================================================================
 # =============================================
 df = pd.read_csv("./CTGSimple.csv", sep="\t", header=1)
+
+
+# EXPLORE DATA
+# ============================================================================================
+# =============================================
+numberic_features=df.select_dtypes(include=[np.number])
+categorical_features=df.select_dtypes(include=[np.object])
 
 
 # MISCELLANEOUS

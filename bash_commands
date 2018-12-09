@@ -42,7 +42,7 @@ lslbk                   # check disk, blocks, space
 ip addr                 # to check the status of your network connection
 iwconfig                # to check the settings of your wireless connection
 chown (-R) root:aurelien file.ext - change ownership of file:user=root and group=aurelien (R for recursive)
-chmod (-R) 664 file.ext      # change rights (6:r&w, 4:r) for owner(6)/group(6)/public(4)
+chmod (-R) 664 file.ext      # change rights (6:r&w, 4:r) for owner(6)/group(6)/public(4), (6) = octal notation of 110 = read, write, no execute, (7) = all
 rm file.ext             # remove/delete file.ext
 rm -rf dir              # remove/delete directory
 mkdir toto              # create directory toto
@@ -117,3 +117,5 @@ viewnior image.jpg            # Displays/shows images/pictures
 ctags -R .              # create recursively tags from the files in the current directory
 iftop               # to track/monitor/display network traffic bandwidth
 man -k toto           # grep through user manuals, larger fishing in help files
+netstat -lat               # lists the listening and established ports
+pip install -r requirements.txt                # install all requirements (python packages) from the list (obtained from pip freeze

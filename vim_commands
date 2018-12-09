@@ -37,11 +37,17 @@ ga                              # prints the ascii value of the character under 
 g] (equiv à :ts {ident})        # displays a list of all the tags available corresponding to the word under the cursor
 :setlocal spell spelllang=fr    # enable the spell checker
 ]s, [s                          # next/previous spell error
+F8                              # Toggle the spell checker on/off
 {visual of a word} zg, zw       # add the selected word to the current dictionary (mark it as "good"/"bad")
 {insert}CTRL-x CTRL-f           # switch to directories alone (not with files)
 :read {filename}                # copies whatever is in the target file in the current file
+:read !command (ex ls)          # copies the output of the command in the current (or given) file
 :h n_toto (default), i_, v_, c_ # search through help for the command toto in normal/insert/visual etc mode
 :helpgrep (helpg), :helpt etc   # helpg "topic" search through all the help files about topic regex(?)
 :cl, cn/cp, cc number, cope     # after a helpgrep/helpg command, lists all answers, go to the next/previous, to a specific one, open the list in a window
 :map                            # lists all the mappings(?), to be looked deeper into it
 gf                              # opens the file under/after the cursor in a buffer
+gV                              # go back to previous selected area
+jk (together)                   # escape (not in insert mode, all else), by pressing the keys at the same time --> chord (see arpeggio)
+{visual} rp (together)          # run the selected area with python and replace it by the returned result
+z = {**x, **y}              # To join dictionnaries together

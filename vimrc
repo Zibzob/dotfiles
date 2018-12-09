@@ -31,6 +31,7 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'tomtom/tcomment_vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kana/vim-arpeggio'
 
 " ==== PLUGIN THEMES ====
 "Plugin 'vim-scripts/darktango.vim'
@@ -182,9 +183,9 @@ noremap <F4> :set hlsearch! hlsearch?<CR>
 " Switch to next/previous buffer
 nnoremap <A-l> :bn<CR>
 nnoremap <A-h> :bp<CR>
-" Jumps to a tag, and between (back and forth) tags already visited
+" Jumps to a tag, list them and between (back and forth) tags already visited
 noremap <A-o> <C-]>
-"noremap <A-o> g]
+"noremap <A-o> g] (equiv :tselect toto)
 noremap <A-j> :po<CR>
 noremap <A-k> :ta<CR>
 " go to previous/next jump position
@@ -202,6 +203,10 @@ nnoremap <Leader>w /\s\+$<CR>
 " Paragraphs formatting
 nnoremap Q gqap
 vnoremap Q gq
+" Jumps (selects) back to the previous selected visual area
+nnoremap gV `<v`>
+" Toggle the spell checker
+nnoremap <F8> :setlocal spell! spell?<CR>
 
 " ============================= PLUGINS' ======================================
 
@@ -273,6 +278,11 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "let g:pymode_lint_unmodified = 0
 "let g:pymode_lint_on_fly = 0
 "let g:pymode_python = 'python3'
+
+" ==== VIM-ARPEGGIO ====
+call arpeggio#load()
+Arpeggio noremap jk <ESC>
+Arpeggio noremap rp !python<CR>
 
 " ==== VIM-BETTER-WHITESPACE ====
 "let g:EnableWhitespace = 1
