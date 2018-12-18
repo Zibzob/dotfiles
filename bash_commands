@@ -59,6 +59,7 @@ find -not -size (-)1M   # look for files not (under) over 1 megabyte
 find -maxdepht n etc    # limit the recursive search to n dir
 blkid                   # shows partitions and type of partition (ext4, swap...)
 conda create --name toto python pandas scikit-learn matplotlib ipython jupyter keras seaborn # pour creer un environment python
+conda create --name scrab pandas scikit-learn matplotlib ipython jupyter seaborn pyqt=4 # pour creer un environment python
 conda create --name toto python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn gym# pour creer un environment python
 conda create --name pfr python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn selenium theano lasagne # pour creer un environment python
 convert -density 300 totoInput.pdf -quality 90 totoOutput.jpeg  - transform files between several different formats

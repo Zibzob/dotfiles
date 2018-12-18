@@ -1,6 +1,6 @@
 #!/bin/vim
 # I m going to use the Z mark to mark what I'm currently trying to learn in the help menu
-%s/toto//gn                     # use substitute command to count the number of occurences of toto (the n flag makes it a non op - it does not do the replacement, the g flag makes it find all occurences on each line instead of stopping at the first
+%s/toto//n                     # use substitute command to count the number of occurences of toto (the n flag makes it a non op - it does not do the replacement, the g flag makes it find all occurences on each line instead of stopping at the first
 %s/color \<\(red\|blue\)\>/colored "\1"/g
 :marks                          # to list all the saved marks
 /\stroutrou/m/\stic
@@ -15,7 +15,9 @@ gv                              # re select the last visual selection
 /toto\|titi                     # search for toto OR titi
 /.*red\&.*blue                  # search for lines containing red AND blue in ANY order
 /\<toto\>                       # search for whole word toto (\< : starting, \> : ending)
+/^    $                         # search begining-start/end of line
 /\(\<\w\+\>\)\_s*\<\1\>         # search for duplicated words (separated by \s : space/tab, \_s : space/tab/new line)
+/toto/;/titi                    # search for the first "toto" and from there for the first titi
 :vert ba, ba                    # split (vertically) in as many windows as buffers
 :-15,-4co.                      # copies from the relative lines 15 to 4 (above) to where the pointer is
 :h toto         CTRL-D          # to display the help topics related to "toto"
@@ -46,8 +48,7 @@ F8                              # Toggle the spell checker on/off
 :helpgrep (helpg), :helpt etc   # helpg "topic" search through all the help files about topic regex(?)
 :cl, cn/cp, cc number, cope     # after a helpgrep/helpg command, lists all answers, go to the next/previous, to a specific one, open the list in a window
 :map                            # lists all the mappings(?), to be looked deeper into it
-gf                              # opens the file under/after the cursor in a buffer
+gf                              # opens/jumps the file under/after the cursor in a buffer
 gV                              # go back to previous selected area
 jk (together)                   # escape (not in insert mode, all else), by pressing the keys at the same time --> chord (see arpeggio)
 {visual} rp (together)          # run the selected area with python and replace it by the returned result
-z = {**x, **y}              # To join dictionnaries together

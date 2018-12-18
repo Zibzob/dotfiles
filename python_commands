@@ -21,6 +21,13 @@ plt.close('all')
 who/whos        - check the variables in memory for ipython/jupyter
 pylint  -r n toto.py    - checks errors / style imperfections in the code
 
+
+# BASES
+# ============================================================================================
+# =============================================
+z = {**x, **y}              # To join dictionnaries together
+
+
 # FUNCTIONS - LAMBDA
 # ============================================================================================
 # =============================================
@@ -236,6 +243,19 @@ pdb # toggles the interactive ipython debugger
 debug # retroactively enters the pdb debugger (after a run command)
 import ipdb        ipdb.set_trace() # stops the run at the trace and launch the pdb debugger
 vars() # returns the variables which were defined when the error occured and their value
+
+
+# EFFICIENCY - PERFORMANCE
+# ============================================================================================
+# =============================================
+import profile; profile.run('main()') # runs main and returns time spent on all function calls
+%run -p script or %prun run script # magic command to call cProfil which returns the time spent on all function calls
+%timeit trucAtimer # count/mesure/calculate time spent for a line set of commands on Ipython
+%%timeit blockTrucAtimer # count/mesure/calculate time spent for a block set of commands on Ipython
+import time; t1 = time.time(); duree = time.time() - t1
+"".join(str_list) instead of += loop # string concatenation
+new_list = map(func, old_list) instead of looping # to be checked
+
 
 
 #########################################################################################
