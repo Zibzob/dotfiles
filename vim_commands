@@ -1,6 +1,9 @@
 #!/bin/vim
 # I m going to use the Z mark to mark what I'm currently trying to learn in the help menu
 %s/toto//n                     # use substitute command to count the number of occurences of toto (the n flag makes it a non op - it does not do the replacement, the g flag makes it find all occurences on each line instead of stopping at the first
+:[range]s/toto/titi             # substitutes toto to titi (only the first occurence of range lines)
+:[range]s/toto/titi/g           # substitutes toto to titi (all occurences of range lines)
+:%s/toto/titi(/g)               # substitutes toto to titi (all occurences on all lines)
 %s/color \<\(red\|blue\)\>/colored "\1"/g
 :marks                          # to list all the saved marks
 /\stroutrou/m/\stic
@@ -10,6 +13,8 @@
 '^                              # jumps to the last inserted line of the file
 '<, '>                          # jumps to the beginning/ending of the last visual selection
 gv                              # re select the last visual selection
+gm                              # jump to the middle of the current line
+N gs                            # sleep for [N] seconds (default 1)
 :ju                             # to list all the jumps
 :help jumps                     # help menu to a particular subject
 /toto\|titi                     # search for toto OR titi
@@ -21,6 +26,7 @@ gv                              # re select the last visual selection
 :vert ba, ba                    # split (vertically) in as many windows as buffers
 :-15,-4co.                      # copies from the relative lines 15 to 4 (above) to where the pointer is
 :h toto         CTRL-D          # to display the help topics related to "toto"
+: + ctrl f ou / + ctrl f        # opens history of last command/search which can be edited vim style
 alt o, alt j, alt k             # to jump to a tag (when the prompt is above the name), and go back and forth between the tags previously visited
 ctrl d, ctrl r (from ctrlp prompt) # toggle on/off the search by filename/path, with/without regexp
 :tabe, tabc, tabo               # to open a new tab window, close one, close all but the first, tabs are great if you need to edit a buffer and you don't want to spoil your window splits/organisation, or to have several windows layout at the same time and to easily switch them
@@ -41,7 +47,7 @@ g] (equiv à :ts {ident})        # displays a list of all the tags available cor
 ]s, [s                          # next/previous spell error
 F8                              # Toggle the spell checker on/off
 {visual of a word} zg, zw       # add the selected word to the current dictionary (mark it as "good"/"bad")
-{insert}CTRL-x CTRL-f           # switch to directories alone (not with files)
+{insert}CTRL-x CTRL-f           # switch to directories alone (not with files), and autocomplete path
 :read {filename}                # copies whatever is in the target file in the current file
 :read !command (ex ls)          # copies the output of the command in the current (or given) file
 :h n_toto (default), i_, v_, c_ # search through help for the command toto in normal/insert/visual etc mode

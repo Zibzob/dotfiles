@@ -29,7 +29,7 @@ Plugin 'davidhalter/jedi-vim'
 "Plugin 'tmhedberg/SimpylFold'
 "Plugin 'ntpeters/vim-better-whitespace'
 "Plugin 'tomtom/tcomment_vim'
-Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline' " status line, the bar at the bottom of the screen
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kana/vim-arpeggio'
 
@@ -177,7 +177,9 @@ nnoremap <Leader>l <C-W><C-L>
 nnoremap <Leader>h <C-W><C-H>
 nnoremap <Leader>o <C-W><C-O>
 " Easy closing of buffers
-nnoremap <Leader>q :bd<CR>
+nnoremap <Leader>q :wv<CR>:bd<CR>
+" Select all
+nnoremap <Leader>a ggVG
 " Vim's grep in many files
 nnoremap <Leader>f :vim /
 cnoremap <C-D> /gj ~/dotfiles/*<CR>:cope<CR><C-W>L
@@ -315,7 +317,7 @@ let g:jedi#rename_command = "<leader>r"
 call arpeggio#load()
 Arpeggio noremap jk <ESC>
 Arpeggio noremap rp !python<CR>
-Arpeggio noremap df :g/<CR>
+Arpeggio noremap df :g/<CR>:%s///gn<CR>
 Arpeggio noremap fj 10j
 Arpeggio noremap dk 10k
 

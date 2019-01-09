@@ -18,6 +18,7 @@ cd /                    # root
 cd ./toto               # from current folder
 cd ../toto              # from parent folder
 pwd                     # Print Working Directory
+printenv                # print/list/display all environment variables
 !!                      # repeat command
 sudo totocommand        # super user (give all rights)
 sudo su                 # puts you in super user mode all the time
@@ -41,8 +42,9 @@ lspci                   # check pci devices, if they are connected etc
 lslbk                   # check disk, blocks, space
 ip addr                 # to check the status of your network connection
 iwconfig                # to check the settings of your wireless connection
-chown (-R) root:aurelien file.ext - change ownership of file:user=root and group=aurelien (R for recursive)
-chmod (-R) 664 file.ext      # change rights (6:r&w, 4:r) for owner(6)/group(6)/public(4), (6) = octal notation of 110 = read, write, no execute, (7) = all
+chown (-R) root:aurelien file.ext # change ownership of file:user=root and group=aurelien (R for recursive)
+chown (-R) $USER file.ext # change ownership of file:user=root and group=aurelien (R for recursive)
+chmod (-R) 764 file.ext      # change rights (6:r&w, 4:r) for owner(6)/group(6)/public(4), (6) = octal notation of 110 = read, write, no execute, (7) = all
 rm file.ext             # remove/delete file.ext
 rm -rf dir              # remove/delete directory
 mkdir toto              # create directory toto
@@ -75,6 +77,7 @@ git add file            # to the file or folder to the git versionning
 git add --all *         # add all files from the current folder
 git mv file dir         # move file to dir
 git rm file             # delete the file from your git repository AND from your computer
+git rm --cached file or -r folder # Remove file/folder from the index (to delete it only from remote repository (just push it and it's done)
 # git - commandes a utiliser quand on travaille avec un repo existant (entre local et distant)
 git pull pfr master     # 1st THING TO DO, update your local repository with potential commit
 git commit file1 file2  # create a commit for file1 and file2 (they must have been added before)
@@ -113,10 +116,18 @@ chsh -s /usr/bin/zsh    # change the default shell (with zsh, which needs to be 
 sh -c blabla (voir help)# to execute from a file or something
 upgrade_oh_my_zsh       # check updates for oh my zsh
 j part_of_a_directory_name# move to that directory (you need first to have been at least once in that directory for it to work)
-tree . -L 2            # displays the tree from given directory to the given depth
-viewnior image.jpg            # Displays/shows images/pictures
+tree . -L 2             # displays the tree from given directory to the given depth
+viewnior image.jpg      # Displays/shows images/pictures
 ctags -R .              # create recursively tags from the files in the current directory
-iftop               # to track/monitor/display network traffic bandwidth
-man -k toto           # grep through user manuals, larger fishing in help files
-netstat -lat               # lists the listening and established ports
-pip install -r requirements.txt                # install all requirements (python packages) from the list (obtained from pip freeze
+iftop                   # to track/monitor/display network traffic bandwidth
+man -k toto             # grep through user manuals, larger fishing in help files
+netstat -lat            # lists the listening and established ports
+pip install -r requirements.txt     # install all requirements (python packages) from the list (obtained from pip freeze
+wmctrl                  # windows control manager, to switch to a particular window
+gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Super>j', '<Alt>Tab']" # changes key bindings/shortcut to switch back and forth between windows/application ('switch-windows-backward')
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>k']" # changes key bindings/shortcut to switch back and forth between windows
+<Super>+l  /  <Super>+h # to resize window to the right/left side of the screen (super key is my window key)
+Super + o               # lock the screen (log out)
+super + k/j             # switch between windows (applications)
+super g                 # jump to the gvim windows
+rename.ul patternToChange replacementPattern files  # To rename many files at once
