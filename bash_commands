@@ -1,6 +1,9 @@
 #!/bin/bash
+https://docs.python.org/3.4/library/  # List of the python standard library
+https://pypi.org/       # List of external packages of python
 This line defines wich interpreter to use (in this case a bash file .sh)
 wildcards : ? any single char (except leading dot), * zero or more char (idem), []class of char ( - for range, ! to exlude)
+yapf                    # automate python formatting (pip install yapf, yapf toto.py > toto_clean.py)
 grep with regular expressions (with -i to ignore case) : '^toto'beginning line, 'toto$'end line, '\<toto\>'beginning/end word, '.toto'any one char, '[at4-7]toto'any one of the enclosed char, '[^]'any one char except those enclosed, * match zero or more of the previous char/expression, '\{x,y\}'match x to y occurences of the previous expression, '\{x\}'exactly x, '\{x,\}'x or more, '^$'blank lines
 evince toto.pdf         # visualisation of pdf documents
 openshot                # montage video
@@ -131,3 +134,19 @@ Super + o               # lock the screen (log out)
 super + k/j             # switch between windows (applications)
 super g                 # jump to the gvim windows
 rename.ul patternToChange replacementPattern files  # To rename many files at once
+## List Docker CLI commands
+docker
+docker container --help
+## Display Docker version and info
+docker --version
+docker version
+docker info
+## Execute Docker image
+docker run hello-world
+## List Docker images
+docker image ls
+## List Docker containers (running, all, all in quiet mode)
+docker container ls
+docker container ls --all
+docker container ls -aq
+
