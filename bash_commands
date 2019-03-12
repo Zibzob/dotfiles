@@ -1,7 +1,7 @@
 #!/bin/bash
+# This line defines wich interpreter to use (in this case a bash file .sh)
 https://docs.python.org/3.4/library/  # List of the python standard library
 https://pypi.org/       # List of external packages of python
-This line defines wich interpreter to use (in this case a bash file .sh)
 wildcards : ? any single char (except leading dot), * zero or more char (idem), []class of char ( - for range, ! to exlude)
 yapf                    # automate python formatting (pip install yapf, yapf toto.py > toto_clean.py)
 grep with regular expressions (with -i to ignore case) : '^toto'beginning line, 'toto$'end line, '\<toto\>'beginning/end word, '.toto'any one char, '[at4-7]toto'any one of the enclosed char, '[^]'any one char except those enclosed, * match zero or more of the previous char/expression, '\{x,y\}'match x to y occurences of the previous expression, '\{x\}'exactly x, '\{x,\}'x or more, '^$'blank lines
@@ -67,7 +67,16 @@ conda create --name toto python pandas scikit-learn matplotlib ipython jupyter k
 conda create --name scrab pandas scikit-learn matplotlib ipython jupyter seaborn pyqt=4 # pour creer un environment python
 conda create --name toto python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn gym# pour creer un environment python
 conda create --name pfr python pandas scikit-learn matplotlib ipython jupyter pillow h5py keras seaborn selenium theano lasagne # pour creer un environment python
-convert -density 300 totoInput.pdf -quality 90 totoOutput.jpeg  - transform files between several different formats
+convert toto1.jpg toto2.jpg toto.pdf # merge images into pdf
+# Resize and merge images/pdf to pdf
+list_input=('locataire.pdf' 'Carte identité.jpg' 'Quittance1.jpg' 'Quittance3.jpg' 'Quittance2.jpg' 'promesse_contrat_expectra.pdf' 'avis_IR.pdf' 'RIB_M_AURELIEN_FEBVRE.pdf')
+list_input=('caution1.jpg' 'caution2.jpg' 'ID_papa.jpg' 'taxe_fonciere_papa.pdf' 'aout_papa.jpg' 'septembre_papa.jpg' 'octobre_papa.jpg' 'IR_papa.pdf' 'rib_papa.pdf' )
+list_input=('1.jpg' '2.jpg' '3.jpg')
+i=150; convert ${list_input[@]} -compress jpeg -quality 70 \
+      -density ${i}x${i} -units PixelsPerInch \
+      -resize $((i*8.27))x$((i*11.69)) \
+      -repage $((i*8.27))x$((i*11.69)) dossier_REE_AFebvre.pdf
+convert -density 300 totoInput.pdf -quality 90 totoOutput.jpeg  # transform files between several different formats
 echo "toto" >> file.ext # append the string to the file (or create the file)
 conda env remove -n toto # to delete python environment
 smplayer                # video player interface built on mplayer http://www.smplayer.info/first-steps.php
@@ -112,7 +121,8 @@ wc -l file.txt          # Returns the number of lines of the file
 find . -iregex '.*truc.*' 2> /dev/null# Look for a regular expression in every repo from the repo in input
 baobab                  # Disk usage analyser
 gnome-disks             # Mount Unmount easily disks
-agi gnome-tweak-tool    # To remap the Caps Lock to the control key
+agi gnome-tweak-tool    # To remap the Caps Lock to the control key and many other settings
+unity-tweak-tool        # Many other settings for ubuntu
 grep -v 'pattern' filename # matches all but (NOT) the pattern lines
 which command           # locate a command
 chsh -s /usr/bin/zsh    # change the default shell (with zsh, which needs to be installed already)
@@ -121,6 +131,7 @@ upgrade_oh_my_zsh       # check updates for oh my zsh
 j part_of_a_directory_name# move to that directory (you need first to have been at least once in that directory for it to work)
 tree . -L 2             # displays the tree from given directory to the given depth
 viewnior image.jpg      # Displays/shows images/pictures
+pdftoppm -rx 300 -ry 300 contrat_expectra.pdf contrat -png  # convert pdf to image (jpg, png etc)
 ctags -R .              # create recursively tags from the files in the current directory
 iftop                   # to track/monitor/display network traffic bandwidth
 man -k toto             # grep through user manuals, larger fishing in help files
@@ -129,7 +140,7 @@ pip install -r requirements.txt     # install all requirements (python packages)
 wmctrl                  # windows control manager, to switch to a particular window
 gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Super>j', '<Alt>Tab']" # changes key bindings/shortcut to switch back and forth between windows/application ('switch-windows-backward')
 gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>k']" # changes key bindings/shortcut to switch back and forth between windows
-<Super>+l  /  <Super>+h # to resize window to the right/left side of the screen (super key is my window key)
+<Super>+l  /  <Super>+h # to resize window to the right/left side of the screen (super key is my window key) To change it, go in settings - devices - keyboard
 Super + o               # lock the screen (log out)
 super + k/j             # switch between windows (applications)
 super g                 # jump to the gvim windows

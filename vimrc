@@ -183,7 +183,7 @@ nnoremap <Leader>a ggVG
 " Vim's grep in many files
 nnoremap <Leader>f :vim /
 cnoremap <C-D> /gj ~/dotfiles/*<CR>:cope<CR><C-W>L
-cnoremap <C-P> /gj ~/Documents/**/*.py<CR>:cope<CR><C-W>L
+cnoremap <C-P> /gj ~/Documents/**/*.*py*<CR>:cope<CR><C-W>L
 cnoremap <C-G> /gj <C-R>%<CR>:cope<CR><C-W>L
 " Apply vimrc changes whithout exiting it
 nnoremap <A-s> :source $MYVIMRC<CR>

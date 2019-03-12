@@ -180,6 +180,7 @@ alias git_set_maj='git add .bash_aliases bash_command.sh .vimrc r_command.R pyth
 #alias cdML='cd $(dirname $(locate evalAF.py)) && ls'
 alias git_push_main='git add .bash_aliases .bashrc python_command.py bash_command.sh r_command.R .vimrc & git commit -a -m "Fichiers settings de base linux" & git push main_settings master'
 alias pfr='d ~/Documents/CoursINSA/PFR'
+alias po='poweroff'
 alias cv='d ~/Documents/job/CV'
 alias pfr_2048='d ~/Documents/CoursINSA/PFR && gvim -O jeu_2048.py play_2048.py play_2048_test.py pfr.py && envp pfr && vpython'
 alias pfr_r='d ~/Documents/CoursINSA/PFR/Rapport/Rapport_theseTemplate'
@@ -287,9 +288,5 @@ apt-cache search . | grep $1
 
 # Grep through all the installed programs : function sip() { apt list --installed | grep $1 }
 function sip() { 
-apt list --installed | grep $1
-}
-
-function cat_files() { # cat the files from the current directory
 apt list --installed | grep $1
 }

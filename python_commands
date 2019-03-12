@@ -17,14 +17,16 @@ from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
 plt.close('all')
 
-
 who/whos        - check the variables in memory for ipython/jupyter
 pylint  -r n toto.py    - checks errors / style imperfections in the code
-
+yapf toto.py > toto_clean.py           # automate python formatting (pip install yapf)
+# LINKS
+# =============================================================================
+http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html # pandas help and useful commands
 
 # BASES
-# ============================================================================================
-# =============================================
+# =============================================================================
+first_var, *rest = ['toto', 'titi', 'tutu'] # And vice versa #toto
 z = {**x, **y}              # To join dictionnaries together
 d = {}; d['a'] = d.get('a', 0) # To initialize a dict entry without if or try
 https://wiki.python.org/moin/TimeComplexity # about complexity in python
@@ -34,35 +36,127 @@ os.listdir('.')     # to list the files in the given directory
 
 
 # MODULES, PACKAGES
-# ============================================================================================
-# =============================================
+# =============================================================================
 __init__.py         # file (can be empty) in every directory supposed to be a package
 np.__name__         # returns the name of the module as a string
 __all__ = ['truc', 'chose'] # in __init__.py, lists what modules to be loaded when from toto import * is summoned
 from . or .. import toto  # relative paths to load a module (only in a module different from the main module, since name is always '__main__')
 
 
+# ERRORS and EXCEPTIONS   (https://docs.python.org/3/tutorial/errors.html)
+# =============================================================================
+# At least 2 distinguishable kinds of errors :
+# SYNTAX errors (= parsing errors) - Ex :
+if True print('syntax error') # miss colon
+# EXCEPTIONS, even when syntactically correct, might have an error at EXECUTION
+# when not handled, result in error messages like :
+>>> 10 * (1/0)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: integer division or modulo by zero # They come in different types
+# Standard exception names are built-in identifiers (not reserved keywords)
+# Handling exceptions : if an exception occurs in try statement, it's either
+# caught by except below (if type of the error matches the one of the except)
+# or it is passed on to the outer try statements. If none is found, then it is
+# an "unhandled exception" and execution stops  with a message
+while True:
+    try:
+        x = int(input("Please enter a number: "))
+        break
+    except ValueError as e:
+        print("Value error: {0}".format(e))
+
+try:
+    f = open('myfile.txt')
+    s = f.readline()
+    i = int(s.strip())
+except OSError as err:
+    print("OS error: {0}".format(err))
+except ValueError:
+    print("Could not convert data to an integer.")
+except: # If not caught by other excepts, goes here, but careful not to hide any real bug, so it's better to raise it again after that message (helpful to debug ??)
+    print("Unexpected error:", sys.exc_info()[0])
+    raise
+else: # Executed if no exceptions caught, better here than in the try statement
+# if we don't want errors of that portion of the code to be caught by the
+# previous try statement
+    print("rest of the code if no exception caught")
+finally: # Clean up actions : executed under all circumstances
+    print('Always salute : bye bye')
+
+# RAISING exceptions
+# to force a specified exception to occur, the sole argument to raise must be
+# an exception instance or an exception class (or class derived from Exception)
+raise ValueError # shorthand for 'raise ValueError()'
+raise NameError('HiThere')
+
+# USER-DEFINED exceptions
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class InputError(Error):
+    """Exception raised for errors in the input.
+
+    Attributes:
+        expression -- input expression in which the error occurred
+        message -- explanation of the error
+    """
+
+    def __init__(self, expression, message):
+        self.expression = expression
+        self.message = message
+
+class TransitionError(Error):
+    """Raised when an operation attempts a state transition that's not
+    allowed.
+
+    Attributes:
+        previous -- state at beginning of transition
+        next -- attempted new state
+        message -- explanation of why the specific transition is not allowed
+    """
+
+    def __init__(self, previous, next, message):
+        self.previous = previous
+        self.next = next
+        self.message = message
+
+# ASSERTIONS exceptions
+assert ('linux' in sys.platform), "This code runs on Linux only." # pass if True, else raise an AssertionError : verifies if a certain condition is met and throw an exception if it isn't
+
+
+# COMPILED vs INTERPRETED (vs HYBRID)
+# =============================================================================
+"Compiled (C, C++, Objective-C)" # --> reduced to machine-specific intructions
+# before being saved as executable file (less portable as a result, but
+# potentially more efficient)
+
+"Interpreted (PHP, JavaScript)" # reduced to machine instructions on the fly at
+# runtime : more portable, less efficient, code available when sharing
+
+"Hybrid (Java, C#, VB.NET, Python)" # first transform into a middle ground
+# language before interpreting
+
+
 # INTROSPECTION - study objects at runtime
-# ============================================================================================
-# =============================================
+# =============================================================================
 id(toto)            # unique identifier of a python object
 dir(toto)           # returns all the methods/attributs of a given class/object
+help(toto)          # displays help for the object (all methods, attributes etc)
 type(toto)          # returns the type of an object
 
 
 # FUNCTIONS - LAMBDA
-# ============================================================================================
-# =============================================
+# =============================================================================
 def function_name(arg1, arg2="initialisation de l arg"):
     return resultat_func
 
 print((lambda x:x**2 + 5x)(4))
 
 
-
 # CONTROL STRUCTURES
-# ============================================================================================
-# =============================================
+# ============================================================================
 for i in range(7):
 for f, v, m in zip(fruits, vegetables, meat): # loop over several iterables
 if condition1: 
@@ -163,8 +257,9 @@ if __name__ == '__main__':
 
 
 # GRAPHES
-# ============================================================================================
-# =============================================
+# =============================================================================
+# Refs :
+# matplotlib, seaborn, networkx, bokeh, bqplot, flexx...
 graph = {'A': set(['B', 'C']),
          'B': set(['A', 'D', 'E']),
          'C': set(['A', 'F']),
@@ -237,7 +332,6 @@ def shortest_path(graph, start, goal):
         return next(bfs_paths(graph, start, goal))
     except StopIteration:
         return None
-
 shortest_path(graph, 'A', 'F') # ['A', 'C', 'F']
 
 # Breadth First Search
@@ -251,9 +345,9 @@ def bfs(graph, start):
     return visited
 bfs(graph, 'A') # {'B', 'C', 'A', 'F', 'D', 'E'}
 
+
 # CLASS & OBJECTS
-# ============================================================================================
-# =============================================
+# =============================================================================
 class Voiture: # Convention : class name with just alphanum characters : VoitureSport
 	def __init__(self): # method called at the creation of the object
 		self.nom = "Ferrari"
@@ -273,8 +367,7 @@ ma_voiture.__dict__ # to check the attributes of an object
 
 
 # DEBUGGING
-# ============================================================================================
-# =============================================
+# =============================================================================
 pdb # toggles the interactive ipython debugger
 debug # retroactively enters the pdb debugger (after a run command)
 import ipdb        ipdb.set_trace() # stops the run at the trace and launch the pdb debugger
@@ -282,8 +375,7 @@ vars() # returns the variables which were defined when the error occured and the
 
 
 # EFFICIENCY - PERFORMANCE
-# ============================================================================================
-# =============================================
+# =============================================================================
 import profile; profile.run('main()') # runs main and returns time spent on all function calls
 %run -p script or %prun run script # magic command to call cProfil which returns the time spent on all function calls
 %timeit trucAtimer # mesure/calculate time spent for a line set of commands on Ipython
@@ -294,29 +386,46 @@ import time; t1 = time.perf_counter(); duree = time.perf_counter() - t1 # temps 
 new_list = map(func, old_list) instead of looping # to be checked
 
 
+###############################################################################
+# DATA SCIENCE ################################################################
+###############################################################################
+# NUMPY
+# =============================================================================
+# Refs :
+# 100 Numpy exercises : http://www.labri.fr/perso/nrougier/teaching/numpy.100/
+np.zeros_like(arr) / np.ones_like(arr) # copies shape of a matrix filled with 0/1
+np.reshape(arr, (new_size, -1), order='C') # -1 as a jocker, else int size, order to precise what represents the tuple (col, row) or (row, col)
+m = np.matrix(' 1 2 3; 4 5 6; 7 8 9')
+motif = [[0, 1, 2], [3, 4, 5]]
+np.tile(motif, (2, 3)) # Create an array by repeating a pattern
 
-#########################################################################################
-# DATA SCIENCE
-#########################################################################################
 
+# PANDAS
+# =============================================================================
+# Dataframe ~ excel sheet/SQL table, quick below 10 millions rows (~10Mo)
+#       --> to manipulate blocks (subtable)
 
 
 # IMPORT DATA
-# ============================================================================================
-# =============================================
+# =============================================================================
 df = pd.read_csv("./CTGSimple.csv", sep="\t", header=1)
-
+# See 'iterator' param if the file is too big to be processed in one piece, ex :
+for df in pandas.read_csv("iris.txt", sep="\t", iterator=True, chunksize=60):
+    print(df.shape)
 
 # EXPLORE DATA
-# ============================================================================================
-# =============================================
+# =============================================================================
 numberic_features=df.select_dtypes(include=[np.number])
 categorical_features=df.select_dtypes(include=[np.object])
 
+# OPTIMISATION
+# =============================================================================
+# see scipy.optimize and
+http://scipy-lectures.org/advanced/mathematical_optimization/index.html
+
 
 # MISCELLANEOUS
-# ============================================================================================
-# =============================================
+# =============================================================================
 # Count stuff
 from collections import Counter
 ens = ["a", "b", "gh", "er", "b", "gh"]
@@ -344,16 +453,14 @@ np.mean(cross_val_score(neigh, X, y, cv=5)) # give the mean of the five results 
 
 
 # ACP - PCA (dimension reduction - Principal Component Analyse)
-# ============================================================================================
-# =============================================
+# =============================================================================
 pca = PCA(n_components=n) # n = number of variable to keep
 X_red = pca.fit_transform(X)
 
 
 
 # LOGISTIC REGRESSION (optim max(vraisemblance derived from P), with P=f(score) et score=log(P1/P2))
-# ============================================================================================
-# =============================================
+# ============================================================================
 # Xa, Xv, Xt, C to be determined
 from sklearn import linear_model
 from sklearn.metrics import accuracy_score
@@ -377,10 +484,8 @@ print('Err apprentissage correspondante = {}'.format(100*(1 - accuracy_score(Ya,
 proba = clf_reglog.predict_proba(Xv) # to get the probabilities calculated
 
 
-
 # LDA / QDA : Generative method, bayesien theorem, qualitative labels (require knowledge of proba law)
-# ============================================================================================
-# =============================================
+# =============================================================================
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 # LDA
@@ -398,20 +503,16 @@ err_qda = sum(Y_qda!= Y)/Y.size
 print('QDA : taux d''erreur = {}%'.format(100*err_qda))
 
 
-
 # K-NEAREST NEIGBORS
-# ============================================================================================
-# =============================================
+# =============================================================================
 neigh = KNeighborsClassifier(n_neighbors=i)
 neigh.fit(X_train, y_train)
 y_pred = neigh.predict(X_val)
 res = sum(y_val == y_pred)/len(y_val)*100
 
 
-
 # KMEANS - MINIBATCH KMeans
-# ============================================================================================
-# =============================================
+# =============================================================================
 # KMeans
 model = KMeans(n_X)
 plt.scatter(X[:,0], X[:,1], c = model.fit_predict(X))
@@ -421,18 +522,17 @@ model = MiniBatchKMeans(n_X)
 plt.scatter(X[:,0], X[:,1], c = model.fit_predict(X))
 
 
-
 # HIERARCHICAL CLASSIFICATION
-# ============================================================================================
-# =============================================
+# =============================================================================
 model = AgglomerativeClustering(n) # n = number of cluster to find (see sklearn for more)
 plt.scatter(X[:,0], X[:,1], c = model.fit_predict(X))
 
 
-
 # PLOTs
-# ============================================================================================
-# =============================================
+# =============================================================================
+# Geographical maps : see folium par ex
+# change plot style
+plt.style.use('ggplot')
 # To plot an image stored as a vector
 def plotimage(x, larg=28, haut=28, title=""):
     img = np.reshape(x, (larg,haut))
@@ -484,7 +584,6 @@ plot_regions_decision_2d(X[:,variables], Y, clf_lda, 0.02, titre='LDA')
 clf_qda.fit(X[:,variables], Y) 
 plot_regions_decision_2d(X[:,variables], Y, clf_qda, 0.02, titre='QDA')
 plt.show()
-
 
 def investing(years=30, apport=10000, taux=0.05, savings=5000):
     pesos = apport * (1+taux) + savings
