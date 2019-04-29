@@ -180,6 +180,8 @@ nnoremap <Leader>o <C-W><C-O>
 nnoremap <Leader>q :wv<CR>:bd<CR>
 " Select all
 nnoremap <Leader>a ggVG
+" Opens vimrc and file tree in that directory
+nnoremap <Leader>d :e $MYVIMRC<CR>:NERDTreeFind<CR>
 " Vim's grep in many files
 nnoremap <Leader>f :vim /
 cnoremap <C-D> /gj ~/dotfiles/*<CR>:cope<CR><C-W>L

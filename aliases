@@ -6,7 +6,7 @@ path_dotfiles=~/dotfiles
 # Aliases from the dotbot repo
 
 # Use colors in coreutils utilities output
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color'
 
 # ls aliases
@@ -153,6 +153,8 @@ alias G='grep -i'
 alias pdf='xdg-open'
 alias agi='sudo apt-get install'
 alias agr='sudo apt-get remove'
+alias agar='sudo apt-get autoremove'
+alias agac='sudo apt-get autoclean'
 alias agug='sudo apt-get upgrade'
 alias agud='sudo apt-get update'
 alias h='history'
@@ -279,6 +281,8 @@ cd $(dirname $(find -iname '$1')) && ls
 # Grep through all the available commands : function cmd() { compgen -A function -abck | grep $1 | sort | grep $1 } 
 function cmd() {
     bash -c "compgen -A function -abck" | sort | grep $1
+    apt list --installed | grep $1
+    man -k $1
 } 
 
 # Grep through all available packages from apt-get : function sap() { apt-cache search . | grep $1 }

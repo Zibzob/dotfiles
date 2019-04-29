@@ -22,7 +22,15 @@ pylint  -r n toto.py    - checks errors / style imperfections in the code
 yapf toto.py > toto_clean.py           # automate python formatting (pip install yapf)
 # LINKS
 # =============================================================================
+https://jsfiddle.net/boilerplate/jquery # to learn javascript, CSS, html, bref web stuff
 http://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html # pandas help and useful commands
+http://google.github.io/styleguide/pyguide.html # Google python style guide
+https://docs.pytest.org/en/latest/ # Tests in python (framework)
+http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/specials/unittest_coverage_git_profling.html # tests avec Xavier Dupre
+https://docs.python.org/3/library/unittest.html # Tests on python software fundation
+http://www.labri.fr/perso/nrougier/teaching/numpy.100/ # 100 code examples on nympy
+https://codingcompetitions.withgoogle.com/codejam # Google problem solving competition
+http://www.xavierdupre.fr/app/teachpyx/helpsphinx/c_classes/classes.html#presentation-des-classes-methodes-et-attributs
 
 # BASES
 # =============================================================================

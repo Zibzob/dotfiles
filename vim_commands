@@ -35,7 +35,8 @@ alt-l, alt-h                    # go back and forth between change positions
 ctrl-o, ctrl-i                  # go back and forth between jump positions
 K                               # Opens the help menu of the expression below the cursor
 " "                             # leader
-leader f                        # open nerdtree at the current file
+leader t                        # open nerdtree at the current file
+leader f toto                   # grep toto through all files from : - dotfiles (ctrl-D) - .py dans Documents (ctrl-P)
 :StripWhitespace                # get rid of all the trailing white spaces (or just the selected lines)
 leader c leader                 # comment the selected lines
 F7                              # to run the flake8 plugin check (PEP8 and stuff)
@@ -58,3 +59,4 @@ gf                              # opens/jumps the file under/after the cursor in
 gV                              # go back to previous selected area
 jk (together)                   # escape (not in insert mode, all else), by pressing the keys at the same time --> chord (see arpeggio)
 {visual} rp (together)          # run the selected area with python and replace it by the returned result
+:r !date                        # insert date time
