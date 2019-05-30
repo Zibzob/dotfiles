@@ -32,6 +32,12 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline' " status line, the bar at the bottom of the screen
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kana/vim-arpeggio'
+Plugin 'vim-scripts/ReplaceWithRegister' " gr verb to replace with what is in register
+Plugin 'kana/vim-textobj-user' " l (al ou il) : line object : ex cal to change all line without trailing spaces
+Plugin 'kana/vim-textobj-indent' " i/I object for indent : ex >iI to indent inner indent
+Plugin 'kana/vim-textobj-line' " l (al ou il) : line object : ex cal to change all line without trailing spaces
+Plugin 'aaronbieber/vim-quicktask' " notes tool
+
 
 " ==== PLUGIN THEMES ====
 "Plugin 'vim-scripts/darktango.vim'
@@ -132,6 +138,9 @@ autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 augroup END
 
+"" opens help in vertical split
+autocmd FileType help wincmd L
+
 " disable audible bell
 set noerrorbells visualbell t_vb=
 
@@ -155,6 +164,14 @@ au BufNewfile, BufRead *.py
 
 "autocmd BufWritePost *.py call Flake8() " Call a flake8 check every time I save
 command! MakeTags !ctags -R .
+
+" ============================= ABBREVIATIONS ========================================
+ia fu function
+ia aur Aurélien Febvre
+ia pe peut-être
+ia Pe Peut-être
+ia auj aujourd'hui
+ia Auj Aujourd'hui
 
 " ============================= REMAPS ========================================
 nmap <silent> <A-Up> :wincmd k<CR>

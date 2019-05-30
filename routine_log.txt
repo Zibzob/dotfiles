@@ -1,13 +1,122 @@
-# lundi 29 avril 2019, 22:19:25 (UTC+0200)
-    - Visite médical le matin --> faire le rappel du vaccin contre le thétanos
-      (dernier rappel en 2008 apparement)
-    - Entretien avec Frederic Daguin --> Responsable Pompe (UO3) puis en juin
-      doit prendre une partie des activités d'Edouard Dezille pendant qu'il
-      sera parti et également des activités liées à la digitalisation/innovation côté R&D
-    - 2ème lapin avec Antoine Laut (en réunion avec clients)
-    - Réunion avec Jonathan pour organiser le déploiement côté R&D de la partie
-      investigation du cockpit (du coup réunion jeudi matin avec guillaume et
-      n-1 pour présenter l'outil)
-    - Téléchargement de l'épisode 3 de la saison 8 de Game of Thrones (via
-      torrent 1337X.to puis deluge)
+JOURNAL QUOTIDIEN, GARDE MÉMOIRE.
+###############################################################################
+Fonctionnement :
+  - $$$$ = tâche à faire
+r !date
+r !date --date="yesterday"
+###############################################################################
 
+# lundi 29 avril 2019, 22:19:25 (UTC+0200)
+  - Visite médical le matin --> faire le rappel du vaccin contre le thétanos
+    (dernier rappel en 2008 apparement)
+  - Entretien avec Frederic Daguin --> Responsable Pompe (UO3) puis en juin
+    doit prendre une partie des activités d'Edouard Dezille pendant qu'il
+    sera parti et également des activités liées à la digitalisation/innovation côté R&D
+  - 2ème lapin avec Antoine Laut (en réunion avec clients)
+  - Réunion avec Jonathan pour organiser le déploiement côté R&D de la partie
+    investigation du cockpit (du coup réunion jeudi matin avec guillaume et
+    n-1 pour présenter l'outil)
+  - Téléchargement de l'épisode 3 de la saison 8 de Game of Thrones (via
+    torrent 1337X.to puis deluge)
+
+# mardi 30 avril 2019, 10:41:48 (UTC+0200)
+  - Rencontre avec Clément Baudet (Qualité UO2/4 - valves et ?), il m'a
+    réexpliqué un peu l'organisation de la qualité chez Aptar, avec d'un côté
+    l'assurance Qualité (QA, Ludovic Chavet), plus orientée sur les méthodes
+    qualité, les process mis et à mettre en place pour assurer la qualité d'un
+    produit (je vois ça comme du développement de qualité, plus proccess oriented),
+    et de l'autre le contrôle qualité (QC, Frédreric Smagghe) qui s'occupe
+    d'assurer que les produits remplissent les attentes des clients (contrôle : on
+    cherche à identifier les produits defectueux).
+
+    On a du coup revu les principales étapes du process, vu d'un point de vue
+    QC, du contrôle reception des pièces/matériaux en input, en passant par
+    le moulage, jusqu'à l'assemblage, avec à chaque étape des contrôles qui
+    peuvent être faits à la fois par les opérateurs et/ou par le QC.
+  - piscine avec Matthias, les deux nageurs que j'avais croisé les deux
+    dernières fois que je suis allé nager sont d'aptar en fait. Matthias est
+    le dernier (de beaucoup, il m'a parlé d'un frère de 47 ans et de ses
+    parents qui l'auraient eu autour des 41 ans de sa maman), et n'est pas
+    spécialement famille (force à échanger avec des gens qu'on apprécie pas
+    forcément puisqu'on ne les a pas choisis). Sa femme (ex meilleure amie
+    qu'il voyait déjà quand il était avec ses ex, elle idem) ne vient pas d'une
+    famille qui cuisine beaucoup, contrairement à matthias, qui du coup aime
+    aussi cuisiner (notamment les légumes, cuiseur vapeur etc).
+  - Laura propose d'aller boire un verre à Rouen Vendredi soir, et a lancé
+    une invitation pour fêter son anniversaire chez elle le samedi 8 juin
+  - le cockpit doit être présenté aux n-1 de Guillaume jeudi à 11h, il faut
+    d'ici là que la page investigation soit dispo/running sur powerbi
+    service. Pour le moment, j'ai upload le "dataset" cad le rapport complet,
+    il faudrait que je réussisse à faire un rapport avec uniquement l'onglet
+    investigation en live connection sur le premier rapport. Faut que je
+    demande à Alban, j'ai pas réussi à le faire : pour créer un rapport en
+    live connection il ne faut pas qu'il soit déjà branché sur des données, donc
+    partir de mon rapport ne fonctionne pas, et partir de zéro fait que je perds
+    les visus du rapport.
+
+  - Episode 3 de Got S08, j'ai pas aimé, je me suis ennuyé, il se passe rien,
+    tout est trop beau, que des rencontres improbables, des combats
+    improbables, aucune considération de réalisme, de la démagogie pour
+    téléspectateur/personnage : on veut contenter tout le monde alors que
+    c'est pas possible, au final on fait de la bouse
+
+# mercredi 1 mai 2019, 10:37:49 (UTC+0200)
+  - VTT vers La Londe, 1h14, 20.6km, 260m up
+
+# vendredi 3 mai 2019, 12:23:27 (UTC+0200)
+  - apparemment je vais bouger physiquement de portakabin, pour me retrouver
+    avec ceux d'en face (clémence & co ?), j'ai pas reçu de mail par rapport
+    à ça, alors que tout le monde à l'air au courant de qui va où...
+  - j'ai réussi à recréer les variable MATERIAL_CD et surtout MATERIAL_DS
+    (qui manquait dans la table results) à partir de la table genealogy et je
+    les ai ajoutées dans la table BATCH_CD_CHILD
+  - j'ai refait tous les signets associés aux différentes pièces dans
+    l'onglet BATCH_DETAILS (il faut cocher les désignations associées à la
+    pièce dans le segment caché, selectionner les éléments propres au signet
+    qu'on est en train de faire : {segment caché + tous les background pièces
+    avec celui visé décaché})
+  - sortie avec Valentyna, Laura et Noémie à Rouen : Poutine au Vixen puis
+    bière au Saxo (vieux fauteuils cuir à l'intérieur). J'ai récupéré
+    Valentyna à Oissel, Laura chez sa maman, puis je les ai toutes ramenées
+    ensuite.
+
+# samedi 4 mai 2019, 09:44:02 (UTC+0200)
+  - Changement d'essuie-glace de la 307
+  - regex pour substitute (avec notamment \1..\9 pour faire appel aux blocs
+    \(\) successifs définis dans le search, ex dans Vim : 
+  ":%s/\(^# \w* \)\(.*\)\(,.*$)/# Date du jour : \2/g"
+  - j'ai ajouté quelques plugins à vim :
+      - un verbe : gr pour remplacer avec register sans l'écraser
+      - deux objects : indent (i ou I), line (al il)
+  - je suis allé à Rouen avec Léo restau Indien "Le Delhi" + "Saxo"
+
+# dimanche 5 mai 2019, 19:43:32 (UTC+0200)
+  - vélo du côté des "roches d'Oissel" au dessus d'Orival, plus pour les
+    motos/quads
+
+# lundi 6 mai 2019, 19:43:47 (UTC+0200)
+  - j'ai pu avancer sur le cockpit, je suis presque prêt à proposer à Jonathan
+    de prévoir une mise en service pour les valves. J'essaye aussi de voir
+    quelles sont les implications pour scaler aux autres produits et CQA.
+    Ça m'embête un peu que les CQA ne soient pas plus facilement ajoutables,
+    par exemple sur l'onglet overview où j'ai des boutons en dur pour chaque
+    CQA et un signet associé. Ça m'obligerait donc à m'occuper de chaque CQA de
+    chaque produit à la main !!! Non, il faut que je trouve autre chose.
+  - Edouard m'a dit que j'allais bouger dans l'autre portakabin et que je
+    serais assis à côté de son stagiaire qui doit arriver je sais pas quand...
+
+# mardi 7 mai 2019, 19:59:38 (UTC+0200)
+  - point avec Jonathan M. sur le cockpit, ce qu'il en ressort :
+    --> une page de garde qui menerait vers tous les CQA (ou réglages CQA)
+    --> l'onglet Trend Detail, essayer de mettre les réglages des ICQA en
+        dur, tout en les affichant quand meme
+    --> pouvoir voir en surbrillance les règles de Nelson cassées serait bien
+        (j'ai trouvé un moyen, pas parfait mais qui peut faire l'affaire en
+        mettant l'épaisseur de la ligne à zéro, puis en cliquant sur la légende
+    --> J.M n'a pas trop envie de préparer le point entre qualité/prod/R&D car
+        il a peur que ça soit interprêté comme étant de sa responsabilité par
+        la suite. Sur ce sujet, chez GSK, il ont un mec qui est la spécialement
+        pour ça : un product owner qui s'occupe en interne de suivre les
+        tendances, daily, weekly, monthly, quarterly, yearly
+  - je serais assis de dos dans le coin le plus proche de l'entrée de la partie
+    gauche du portakabin

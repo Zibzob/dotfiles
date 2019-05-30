@@ -11,11 +11,21 @@ $
 # FOR LOOP
 arr=(MANDAT.pdf CONTRAT.pdf) # array definition in bash
 for f in $arr;do cp -- "$f" "${f/%.pdf/test.pdf}";done
+for i in 1 2 5 6
+for i in {1..5}
+for i in {0..50..5}
+for ((i=1; i<=5; i++))
+for ((;;)) # infinite loop, hit ctrl+c to stop
+do
+    echo $i
+    echo "This is $i time super awesome"
+done
 
 wildcards : ? any single char (except leading dot), * zero or more char (idem), []class of char ( - for range, ! to exlude)
 
 # BASH COMMANDS
 ###############################################################################
+alt+v                   # from bash command line, to edit a command in a temp vim window/file
 # TO SEARCH THROUGH COMMANDS, APPLICATIONS, USER MANUALS ETC
 uniq                    # filters unique lines ?
 man -k toto             # grep/search through user manuals, larger fishing in help files
@@ -48,9 +58,16 @@ cd /                    # root
 cd ./toto               # from current folder
 cd ../toto              # from parent folder
 
+# to open recalbox shared directory in nautilus : open nautilus and in adress
+# bar : smb://ipaddress/ Ex for recalbox in elbeuf : "smb://192.168.1.49/
+# also from chrome : http://recalbox.local to open file manager of recalbox
+ssh root@192.168.1.49   # connect to recalbox with ssh connexion, then 'yes' and 'recalboxroot' as password
+vifm                    # vim file manager, terminal file manager with vim commands
+nautilus, dolphin       # file managers (gui)
 evince toto.pdf         # visualisation of pdf documents
 openshot                # montage video
 gzip (lzw)              # compression (decompression) of files
+p7zipo -d toto          # decompression .7z files
 printenv                # print/list/display all environment variables
 !!                      # repeat command
 sudo totocommand        # super user (give all rights)
@@ -144,6 +161,11 @@ git merge bob/master    # merge bob s changes with current branch
 git pull bob            # same effect as the last two commands
 cat .git/config         # writes to the terminal what is written in the config file of the git repository
 git diff commit1 com2   # compare those two versions
+# git suite de commandes pour mettre à jour vers github (push)
+ga toto.ext ou gaa      # pour add le file toto.ext, ou add all
+gcam "message de commit"# pour commit les changements
+gp origin master        # pour push le directory local vers le master github, il faut ensuite donner le nom du compte et le mot de passe (Zibzob, class!)
+
 sudo -i                 # connect as root for the session
 strace                  # way to attach to processes to see what they are doing
 sudo fdisk -l           # to see what drives are seen by ubuntu
@@ -299,6 +321,7 @@ uname -a                 # shows kernel information
 man <command>            # shows the manual for specified command
 df                       # shows disk usage
 du <filename>            # shows the disk usage of the files and directories in filename (du -s give only a total)
+du -chd1 Documents | sort -rh | head # disk usage with options "total, human readable, to 1 level down", and pipe to sort it (reversed and human)
 last <yourUsername>      # lists your last logins
 ps -u yourusername       # lists your processes
 kill <PID>               # kills (ends) the processes with the ID you gave

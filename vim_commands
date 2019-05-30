@@ -60,3 +60,5 @@ gV                              # go back to previous selected area
 jk (together)                   # escape (not in insert mode, all else), by pressing the keys at the same time --> chord (see arpeggio)
 {visual} rp (together)          # run the selected area with python and replace it by the returned result
 :r !date                        # insert date time
+gr                              # replace action command with register without overwriting it
+%s/\(\d\{2}\/\d\{2}\/\d\{4}\)\%(.*\n\)\{,4}\D*\(\d\{}\)°C\/\(\d\{}\)°C\n.*/\1\t\2\t\3/g # substitute example for meteo weather cleaning from historique-meteo.net website
