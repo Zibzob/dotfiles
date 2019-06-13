@@ -434,6 +434,23 @@ http://scipy-lectures.org/advanced/mathematical_optimization/index.html
 
 # MISCELLANEOUS
 # =============================================================================
+# keyboard listener
+from pynput import keyboard
+import time
+def on_press(key):
+    try:
+        k = key.char  # single-char keys
+    except:
+        k = key.name  # other keys
+    if key == keyboard.Key.esc:
+        return False  # stop listener
+    # if k in ['1', '2', 'left', 'right']:  # keys interested
+    log.append((time.time(), k)) # store it in global-like variable
+log = []
+lis = keyboard.Listener(on_press=on_press)
+lis.start()  # start to listen on a separate thread
+lis.join()  # no this if main thread is polling self.keys
+
 # Count stuff
 from collections import Counter
 ens = ["a", "b", "gh", "er", "b", "gh"]
