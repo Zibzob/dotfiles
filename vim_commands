@@ -49,6 +49,7 @@ g] (equiv à :ts {ident})        # displays a list of all the tags available cor
 F8                              # Toggle the spell checker on/off
 {visual of a word} zg, zw       # add the selected word to the current dictionary (mark it as "good"/"bad")
 {insert}CTRL-x CTRL-f           # switch to directories alone (not with files), and autocomplete path
+{insert}CTRL-x CTRL-autre char  # auto completion (various types depending on the character)
 :read {filename}                # copies whatever is in the target file in the current file
 :read !command (ex ls)          # copies the output of the command in the current (or given) file
 :h n_toto (default), i_, v_, c_ # search through help for the command toto in normal/insert/visual etc mode

@@ -249,6 +249,11 @@ function pyg() {
 grep -i $1 $path_dotfiles/python_commands
 }
 
+# grep in my bash commands file : function bag() { grep -i $1 $path_dotfiles/bash_commands }
+function gall() { 
+grep -i $1 $path_dotfiles/*
+}
+
 # grep in my gvim commands file : function vig() { grep -i $1 $path_dotfiles/vim_commands }
 function vig() { 
 grep -i $1 $path_dotfiles/vim_commands
@@ -293,4 +298,28 @@ apt-cache search . | grep $1
 # Grep through all the installed programs : function sip() { apt list --installed | grep $1 }
 function sip() { 
 apt list --installed | grep $1
+}
+
+function create() {
+    cd
+    source activate toto
+    python create.py $1
+    cd /home/aurelf/Documents/Projects/$1
+    git init
+    git remote add origin git@github.com:Zibzob/$1.git
+    touch README.md
+    git add .
+    git commit -m "Initial commit"
+    git push -u origin master
+    gvim .
+}
+
+function remove() {
+    my_id=aurelf
+    my_password=Basketball89!
+    cd
+    source activate toto
+    python remove.py $1 $my_id $my_password
+    cd /home/aurelf/Documents/Projects/$1
+    rm -rf .git
 }

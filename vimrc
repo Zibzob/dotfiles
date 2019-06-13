@@ -68,6 +68,7 @@ let mapleader = " "
 " l'installation de vim
 "
 "set nofoldenable
+set nrformats-=octal  " remove octal incrementation of ctrl-a
 set path+=**
 set encoding=utf-8
 set list  " to see the end of lines
@@ -130,6 +131,8 @@ set wildmenu
 "set wildmode=longest,list
 set wildmode=list,longest,full
 "set mouse+=a " enable mouse mode (scrolling, selection, etc)
+set dictionary+=/usr/share/dict/words
+set dictionary+=~/Documents/Projects/Scrabble/mots.txt
 
 "" highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -182,6 +185,9 @@ nmap <silent> <A-Right> :wincmd l<CR>
 " ==== Motions remap ====
 " Escape in insert mode
 inoremap jj <ESC>
+inoremap <C-M> <C-X><C-F>
+inoremap <C-L> <C-X><C-L>
+inoremap <C-K> <C-X><C-K>
 " Move to the 79th column
 nnoremap <C-Space> 079l
 " Add a line above/below and enter insert mode in it

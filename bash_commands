@@ -59,8 +59,10 @@ cd ./toto               # from current folder
 cd ../toto              # from parent folder
 
 # to open recalbox shared directory in nautilus : open nautilus and in adress
-# bar : smb://ipaddress/ Ex for recalbox in elbeuf : "smb://192.168.1.49/
+# bar (ctrl-l) : smb://ipaddress/ Ex for recalbox in elbeuf : "smb://192.168.1.49/
 # also from chrome : http://recalbox.local to open file manager of recalbox
+cpulimit -e process_name (ex warzone2100) -l 30 # to limit the usage of a process (to 30% here for example)
+du -hs                  # summary of disk usage/space of a folder/directory
 ssh root@192.168.1.49   # connect to recalbox with ssh connexion, then 'yes' and 'recalboxroot' as password
 vifm                    # vim file manager, terminal file manager with vim commands
 nautilus, dolphin       # file managers (gui)
@@ -90,7 +92,7 @@ top                     # lists all active processus
 lsusb                   # check usb port to see what is connected
 lspci                   # check pci devices, if they are connected etc
 lslbk                   # check disk, blocks, space
-ip addr                 # to check the status of your network connection
+ip addr  OU ifconfig    # to check the status of your network connection
 iwconfig                # to check the settings of your wireless connection
 chown (-R) root:aurelien file.ext # change ownership of file:user=root and group=aurelien (R for recursive)
 chown (-R) $USER file.ext # change ownership of file:user=root and group=aurelien (R for recursive)
@@ -216,6 +218,12 @@ docker image ls
 docker container ls
 docker container ls --all
 docker container ls -aq
+
+# Various other info (not necessarily related to nix)
+to eject hard drive from box, go to box from chrome explorer (192.168.1.1), in
+the "state" tab (first tab), peripherals --> eject disk
+
+
 
 # 0. Shortcuts.
 
