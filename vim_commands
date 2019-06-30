@@ -1,9 +1,18 @@
 #!/bin/vim
+:h index                        # ALL THE COMMANDS FOR ALL THE MODES !!!!!
+
+
 # I m going to use the Z mark to mark what I'm currently trying to learn in the help menu
 %s/toto//n                     # use substitute command to count the number of occurences of toto (the n flag makes it a non op - it does not do the replacement, the g flag makes it find all occurences on each line instead of stopping at the first
+:%s/\w/(&)/g                    # place parentheses around all the words of the file
+:s or :%s (or even just & or g&)      # redo the last substitute command
+r !ls -d ~/Documents/Projects/**/* # reads the absolute path of all the files in the given directory (recursively)
+{visual}g ^g                            # counts the number of words/lines/char/byte of the whole file (or selected portion) and your current position
 :[range]s/toto/titi             # substitutes toto to titi (only the first occurence of range lines)
 :[range]s/toto/titi/g           # substitutes toto to titi (all occurences of range lines)
 :%s/toto/titi(/g)               # substitutes toto to titi (all occurences on all lines)
+:bufdo bd                       # bufdo : apply a command to all buffers (ex delete)
+ctrl-r ctrl-O                   # place a dynamic ref in the register (here the content of the "register or something like that
 %s/color \<\(red\|blue\)\>/colored "\1"/g
 :marks                          # to list all the saved marks
 /\stroutrou/m/\stic
@@ -31,6 +40,7 @@ alt o, alt j, alt k             # to jump to a tag (when the prompt is above the
 ctrl d, ctrl r (from ctrlp prompt) # toggle on/off the search by filename/path, with/without regexp
 :tabe, tabc, tabo               # to open a new tab window, close one, close all but the first, tabs are great if you need to edit a buffer and you don't want to spoil your window splits/organisation, or to have several windows layout at the same time and to easily switch them
 leader-l, leader-h              # to switch between tabs
+ctrl-a, {visual} g ctrl-a       # add to number, increment by one with g (if multiple lines)
 alt-l, alt-h                    # go back and forth between change positions
 ctrl-o, ctrl-i                  # go back and forth between jump positions
 K                               # Opens the help menu of the expression below the cursor
@@ -42,6 +52,7 @@ leader c leader                 # comment the selected lines
 F7                              # to run the flake8 plugin check (PEP8 and stuff)
 :find partNameFile, :b same     # search for, open directly (if existing and unique) the file given in input
 ga                              # prints the ascii value of the character under the cursor
+{i}^v (ou ^q) nnn (decimal value of the char) # insert a character based on its decimal/hexa etc value
 :MakeTags                       # create tags recursively from the working directory (or see bash_commands --> ctags -R . in the shell directly)
 g] (equiv à :ts {ident})        # displays a list of all the tags available corresponding to the word under the cursor
 :setlocal spell spelllang=fr    # enable the spell checker
@@ -50,8 +61,8 @@ F8                              # Toggle the spell checker on/off
 {visual of a word} zg, zw       # add the selected word to the current dictionary (mark it as "good"/"bad")
 {insert}CTRL-x CTRL-f           # switch to directories alone (not with files), and autocomplete path
 {insert}CTRL-x CTRL-autre char  # auto completion (various types depending on the character)
-:read {filename}                # copies whatever is in the target file in the current file
-:read !command (ex ls)          # copies the output of the command in the current (or given) file
+:read or r {filename}           # copies whatever is in the target file in the current file
+:r !command (ex ls, date, find) # copies the output of the command in the current (or given) file
 :h n_toto (default), i_, v_, c_ # search through help for the command toto in normal/insert/visual etc mode
 :helpgrep (helpg), :helpt etc   # helpg "topic" search through all the help files about topic regex(?)
 :cl, cn/cp, cc number, cope     # after a helpgrep/helpg command, lists all answers, go to the next/previous, to a specific one, open the list in a window
@@ -60,6 +71,6 @@ gf                              # opens/jumps the file under/after the cursor in
 gV                              # go back to previous selected area
 jk (together)                   # escape (not in insert mode, all else), by pressing the keys at the same time --> chord (see arpeggio)
 {visual} rp (together)          # run the selected area with python and replace it by the returned result
-:r !date                        # insert date time
 gr                              # replace action command with register without overwriting it
-%s/\(\d\{2}\/\d\{2}\/\d\{4}\)\%(.*\n\)\{,4}\D*\(\d\{}\)°C\/\(\d\{}\)°C\n.*/\1\t\2\t\3/g # substitute example for meteo weather cleaning from historique-meteo.net website
+%s/\(\d\{2}\/\d\{2}\/\d\{4}\)\%(.*\n\)\{,4}\D*\(\d\{}\)°C\/\(\d\{}\)°C\n.*/\1\t\2\t\3/g # substitute example for meteo weather cleaning from historique-meteo.net website Accuweather
+%s/^\D*\(\d\{1,2}\/\d\{1,2}\)\t\(\d\{1,2}\)°\/\(\d\{1,2}\)°\([^°]*\)\t\(\d\{1,2}\)°\/\(\d\{1,2}\)°/\1\/2019\t\2\t\3\4\t\5\t\6/g # Accuweather one

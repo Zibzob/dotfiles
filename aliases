@@ -198,6 +198,7 @@ alias jn='envp toto && jupyter notebook &'
 alias p='cdinsa && grepPython'
 #alias vpython='ipython3 --TerminalInteractiveShell.editing_mode=vi -pylab'
 alias vpython='ipython3 -pylab'
+alias rectype='source activate toto;python /home/aurelf/Documents/Projects/MISCELLANEOUS/typing_speed.py &;disown'
 
 # Cree le repertoire et va dedans : function mkcd() { mkdir $1 && cd $1 }
 function mkcd() { 

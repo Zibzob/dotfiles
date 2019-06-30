@@ -25,6 +25,7 @@ wildcards : ? any single char (except leading dot), * zero or more char (idem), 
 
 # BASH COMMANDS
 ###############################################################################
+curl google.com         # fetch data from the internet/web through http requests
 alt+v                   # from bash command line, to edit a command in a temp vim window/file
 # TO SEARCH THROUGH COMMANDS, APPLICATIONS, USER MANUALS ETC
 uniq                    # filters unique lines ?
@@ -87,7 +88,7 @@ sudo dpkg -i path/name.deb # to install a package dl from internet (not availabl
 sudo gvim /usr/share/X11/xkb/symbols/pc # pour remap keys from keyboard
 history | grep toto     # display command with toto from the history of commands
 locate fichier.ext      # to locate a file (see help)
-ps                      #
+ps -ejH                 # Snapshot of the current processes (see man, plein d'options cool !
 top                     # lists all active processus
 lsusb                   # check usb port to see what is connected
 lspci                   # check pci devices, if they are connected etc
@@ -104,13 +105,8 @@ touch file.txt          # create a file without opening it
 cp f1.ext path/f2.ext   # copy a file f1 in dir located at path, and name it f2.ext
 mv f1.ext path/f2.ext   # move a file f1 in dir located at path, and name it f2.ext
 mv dir1 dir2            # rename dir1 to dir2
-find /usr/src -name '*.c' -size +100k -print
+find /usr/src -name '*.c' -size +100k -print # find path option1 value option2 value etc
 xargs grep toto < file-list # look for toto in all the files written in file-list
-find . -type f/d -name "" # look/search in current dir for all files or dir respecting "toto" conditions
-find . -iname "toto"    # look/search in current dir for all files/dir respecting "toto" conditions
-find -size (-)1M        # look for files (under) over 1 megabyte
-find -not -size (-)1M   # look for files not (under) over 1 megabyte
-find -maxdepht n etc    # limit the recursive search to n dir
 blkid                   # shows partitions and type of partition (ext4, swap...)
 conda create --name toto python pandas scikit-learn matplotlib ipython jupyter keras seaborn # pour creer un environment python
 conda create --name scrab pandas scikit-learn matplotlib ipython jupyter seaborn pyqt=4 # pour creer un environment python

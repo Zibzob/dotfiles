@@ -88,6 +88,7 @@ colorscheme gruvbox
 "set fillchars+=vert:\$
 syntax enable
 set background=dark
+"set background=light
 set ruler " Position of the cursor (lines, columns)
 set hidden
 set relativenumber " Relative line numbering
@@ -168,7 +169,7 @@ au BufNewfile, BufRead *.py
 "autocmd BufWritePost *.py call Flake8() " Call a flake8 check every time I save
 command! MakeTags !ctags -R .
 
-" ============================= ABBREVIATIONS ========================================
+" ============================= ABBREVIATIONS =================================
 ia fu function
 ia aur Aurélien Febvre
 ia pe peut-être
@@ -185,7 +186,7 @@ nmap <silent> <A-Right> :wincmd l<CR>
 " ==== Motions remap ====
 " Escape in insert mode
 inoremap jj <ESC>
-inoremap <C-M> <C-X><C-F>
+inoremap <C-B> <C-X><C-F>
 inoremap <C-L> <C-X><C-L>
 inoremap <C-K> <C-X><C-K>
 " Move to the 79th column
@@ -201,15 +202,19 @@ nnoremap <Leader>h <C-W><C-H>
 nnoremap <Leader>o <C-W><C-O>
 " Easy closing of buffers
 nnoremap <Leader>q :wv<CR>:bd<CR>
+"nnoremap <Leader>c :%bd<CR>
+nnoremap <Leader>c :call DeleteHiddenBuffers()<CR>
 " Select all
 nnoremap <Leader>a ggVG
 " Opens vimrc and file tree in that directory
-nnoremap <Leader>d :e $MYVIMRC<CR>:NERDTreeFind<CR>
+nnoremap <Leader>v :e $MYVIMRC<CR>:NERDTreeFind<CR>
+" Opens python_commands buffer in the background
+nnoremap <Leader>p :e ~/dotfiles/Template/python_commands<CR>:bp<CR>
 " Vim's grep in many files
 nnoremap <Leader>f :vim /
-cnoremap <C-D> /gj ~/dotfiles/*<CR>:cope<CR><C-W>L
-cnoremap <C-P> /gj ~/Documents/**/*.*py*<CR>:cope<CR><C-W>L
-cnoremap <C-G> /gj <C-R>%<CR>:cope<CR><C-W>L
+cnoremap <C-D> /gj ~/dotfiles/*<CR>:cope<CR><C-W>L<C-W><CR>
+cnoremap <C-P> /gj ~/Documents/**/*.*py*<CR>:cope<CR><C-W>L<C-W><CR>
+cnoremap <C-G> /gj <C-R>%<CR>:cope<CR><C-W>L<C-W><CR>
 " Apply vimrc changes whithout exiting it
 nnoremap <A-s> :source $MYVIMRC<CR>
 " Toggle highlight for searched pattern
@@ -229,6 +234,8 @@ nnoremap <C-K> g,
 " Quickfix errors
 nnoremap <C-L> :cn<CR>
 nnoremap <C-H> :cp<CR>
+" Jumps (selects) back to the previous selected visual area
+nnoremap gV `<v`>
 "
 " Sort alphabetically the selectionned columns
 vnoremap <Leader>s :sort<CR>
@@ -237,13 +244,14 @@ vnoremap < <gv
 vnoremap > >gv
 " show trailing whitespaces
 nnoremap <Leader>w /\s\+$<CR>
+" open a new unamed buffer
+nnoremap <Leader>n :vs ene<CR>
 " Paragraphs formatting
 nnoremap Q gqap
 vnoremap Q gq
-" Jumps (selects) back to the previous selected visual area
-nnoremap gV `<v`>
 " Toggle the spell checker
 nnoremap <F8> :setlocal spell! spell?<CR>
+noremap <A-d> :r !date<CR>kJ
 
 " ============================= PLUGINS' ======================================
 
@@ -282,7 +290,7 @@ let g:syntastic_python_checkers = [ 'pylint', 'flake8', 'pep8', 'pyflakes', 'pyt
 "    \ 'active_filetypes': [],
 "    \ 'passive_filetypes': []
 "\}
-nnoremap <Leader>c :SyntasticCheck<CR>
+"nnoremap <Leader>c :SyntasticCheck<CR>
 "nnoremap <Leader>r :SyntasticReset<CR>
 nnoremap <Leader>i :SyntasticInfo<CR>
 nnoremap <Leader>e :Errors<CR>
@@ -292,7 +300,7 @@ nnoremap <Leader>e :Errors<CR>
 "let g:EasyMotion_smartcase = 1
 nmap F <Plug>(easymotion-s)
 "map <Space> <Plug>(easymotion-prefix)
-let g:EasyMotion_keys = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789d'
+let g:EasyMotion_keys = 'jkfdlmsqreuiopzatyghnvJKFDLMSQREUIOPZATYGHNV'
 
 " ==== GRUVBOX ====
 let g:gruvbox_contrast_dark='medium' " soft, medium (default) or hard
@@ -322,7 +330,7 @@ let g:jedi#goto_command = "<leader>d"
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = ""
 let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
+"let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 
@@ -407,3 +415,12 @@ endfunction
 let s:maxoff = 50 " maximum number of lines to look backwards.
 let pyindent_nested_paren="&sw*2"
 let pyindent_open_paren="&sw*2"
+
+function DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
+
