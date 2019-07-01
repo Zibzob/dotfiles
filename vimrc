@@ -88,7 +88,6 @@ colorscheme gruvbox
 "set fillchars+=vert:\$
 syntax enable
 set background=dark
-"set background=light
 set ruler " Position of the cursor (lines, columns)
 set hidden
 set relativenumber " Relative line numbering
@@ -234,9 +233,9 @@ nnoremap <C-K> g,
 " Quickfix errors
 nnoremap <C-L> :cn<CR>
 nnoremap <C-H> :cp<CR>
+"
 " Jumps (selects) back to the previous selected visual area
 nnoremap gV `<v`>
-"
 " Sort alphabetically the selectionned columns
 vnoremap <Leader>s :sort<CR>
 " Keep the selection selected when indenting
@@ -254,6 +253,17 @@ nnoremap <F8> :setlocal spell! spell?<CR>
 noremap <A-d> :r !date<CR>kJ
 
 " ============================= PLUGINS' ======================================
+
+" ==== VIM-ARPEGGIO ====
+call arpeggio#load()
+Arpeggio noremap jk <ESC>
+Arpeggio noremap rp !python<CR>
+Arpeggio noremap df :g/<CR>:%s///gn<CR>
+Arpeggio noremap fj 10j
+Arpeggio noremap dk 10k
+Arpeggio noremap nf :e ~\dotfiles\Template\pep8_cheatsheet.py<CR>zMgg43jyj<C-O><C-O>p
+Arpeggio noremap nc :e ~\dotfiles\Template\pep8_cheatsheet.py<CR>zMgg47jyj<C-O><C-O>p
+Arpeggio noremap ni :e ~\dotfiles\Template\pep8_cheatsheet.py<CR>zMggy39j<C-O><C-O>p
 
 " ==== NERDTREE ====
 let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
@@ -345,14 +355,6 @@ let g:jedi#rename_command = "<leader>r"
 "let g:pymode_lint_unmodified = 0
 "let g:pymode_lint_on_fly = 0
 "let g:pymode_python = 'python3'
-
-" ==== VIM-ARPEGGIO ====
-call arpeggio#load()
-Arpeggio noremap jk <ESC>
-Arpeggio noremap rp !python<CR>
-Arpeggio noremap df :g/<CR>:%s///gn<CR>
-Arpeggio noremap fj 10j
-Arpeggio noremap dk 10k
 
 " ==== VIM-BETTER-WHITESPACE ====
 "let g:EnableWhitespace = 1
