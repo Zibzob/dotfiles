@@ -1,7 +1,9 @@
 #!/bin/vim
 :h index                        # ALL THE COMMANDS FOR ALL THE MODES !!!!!
 
-
+:e /:n                          # edit one / edit multiple files
+/toto          :v/toto/d        # find toto / delete all line not containing toto
+%s/\n^\(.*toto.*\)\@!.*//g  # find all line not containing toto
 # I m going to use the Z mark to mark what I'm currently trying to learn in the help menu
 %s/toto//n                     # use substitute command to count the number of occurences of toto (the n flag makes it a non op - it does not do the replacement, the g flag makes it find all occurences on each line instead of stopping at the first
 :%s/\w/(&)/g                    # place parentheses around all the words of the file

@@ -1,106 +1,5 @@
 #!/usr/bin/env python3
 # coding: utf-8
-from CTCModel import CTCModel
-from IPython.display import clear_output
-from __future__ import division, print_function
-from bs4 import BeautifulSoup
-from collections import Counter, defaultdict, deque
-from contextlib import closing
-from datetime import datetime
-from dbfread import DBF
-from flask import Flask, render_template, request, redirect, url_for, abort, session, flash
-from h5py import File
-from itertools import permutations
-from keras import Input
-from keras.callbacks import EarlyStopping, ModelCheckpoint, TensorBoard
-from keras.datasets import imdb, mnist
-from keras.engine import Model
-from keras.layers import Input, Dense, Flatten, SimpleRNN, GRU, LSTM, TimeDistributed, Activation, Lambda
-from keras.layers.core import Dense
-from keras.layers.embeddings import Embedding
-from keras.models import Model, Sequential, model_from_yaml, load_model, model_from_json
-from keras.optimizers import SGD, Adam, sgd
-from keras.preprocessing import sequence
-from keras.utils import Sequence, GeneratorEnqueuer, OrderedEnqueuer, to_categorical
-from keras.utils.generic_utils import Progbar
-from lasagne.init import Constant, Sparse
-from lasagne.layers import  MergeLayer, ReshapeLayer, FlattenLayer, ConcatLayer
-from lasagne.layers import DenseLayer, InputLayer, batch_norm, DropoutLayer
-from lasagne.nonlinearities import rectify, elu, softmax, sigmoid
-from lasagne.regularization import regularize_network_params, l1, l2, regularize_layer_params_weighted
-from matplotlib.animation import FuncAnimation
-from matplotlib.colors import ListedColormap
-from matplotlib.lines import Line2D
-from numpy.linalg import eig
-from numpy.random import randint
-from pandas import DataFrame, read_csv
-from pynput import keyboard
-from random import randint, shuffle, seed, random, choice
-from redis import Redis, RedisError
-from requests import get
-from requests.exceptions import RequestException
-from scipy import stats
-from scipy.sparse import csr_matrix, diags
-from scipy.sparse import csr_matrix, diags, spdiags, identity
-from scipy.sparse import linalg
-from scipy.spatial import distance
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from sklearn import datasets, linear_model
-from sklearn.decomposition import PCA
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.manifold import TSNE
-from sklearn.metrics import accuracy_score, roc_curve, auc, confusion_matrix
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import train_test_split
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVC
-from tensorflow.python.ops import ctc_ops as ctc
-from time import time
-import PyPDF2 as pdf
-import collections
-import copy
-import datetime
-import functools
-import googlemaps
-import gym
-import h5py
-import ipdb
-import json
-import keras.backend as K
-import lasagne
-import math
-import matplotlib
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
-import networkx as nx
-import numpy as np
-import os
-import pandas as pd
-import pickle
-import random
-import re
-import requests
-import scipy
-import scipy.io as sio
-import seaborn as sns
-import socket
-import sys
-import tensorflow as tf
-import theano
-import theano.tensor as T
-import time
-import unicodedata
-import unittest
-import warnings
-
-plt.close('all')
 
 who/whos        - check the variables in memory for ipython/jupyter
 pylint  -r n toto.py    - checks errors / style imperfections in the code
@@ -123,10 +22,8 @@ first_var, *rest = ['toto', 'titi', 'tutu'] # And vice versa #toto
 z = {**x, **y}              # To join dictionnaries together
 d = {}; d['a'] = d.get('a', 0) # To initialize a dict entry without if or try
 https://wiki.python.org/moin/TimeComplexity # about complexity in python
-cles, vals = zip(*dic_toto.items()) # to explode a dict into its keys and values lists
 http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/notebooks/matrix_dictionary.html  # produit matriciel sparse matrix (a la main)
 os.listdir('.')     # to list the files in the given directory
-
 
 # MODULES, PACKAGES
 # =============================================================================
@@ -257,6 +154,7 @@ elif condition2:
 else:
 while condition:
     break # Si on veut forcer la sortie de la boucle
+    continue # Go straight to the next loop without finishing the current one
 
 # Switch (inexistant in python) with a dictionary
 def f(x):
@@ -461,6 +359,13 @@ ma_voiture.__dict__ # to check the attributes of an object
 
 # DEBUGGING
 # =============================================================================
+%run -d my_file.py # Start a pdb session with commands like b 10, s, c...
+b 15 # Set a breakpoint at line 15
+c # Continue to next breakpoint
+s # Step into next statement (goes into functions)
+n # Jump to next statement [jumps over functions)
+div() # Prints the current local variables
+runcall(fun) # On a specific function (see doc)
 pdb # toggles the interactive ipython debugger
 debug # retroactively enters the pdb debugger (after a run command)
 import ipdb        ipdb.set_trace() # stops the run at the trace and launch the pdb debugger

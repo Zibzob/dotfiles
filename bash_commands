@@ -4,6 +4,10 @@
 https://docs.python.org/3.4/library/  # List of the python standard library
 https://pypi.org/       # List of external packages of python
 
+# SHORTCUT
+###############################################################################
+cmd - ctrl-D            # kind of autocomplete : display/print all available options for the command (try right after the cmd, after cmd -, try many combinations as it's not always the same things that are printed
+
 # BASH SCRIPTING
 ###############################################################################
 # VARIABLES
@@ -29,6 +33,7 @@ curl google.com         # fetch data from the internet/web through http requests
 alt+v                   # from bash command line, to edit a command in a temp vim window/file
 # TO SEARCH THROUGH COMMANDS, APPLICATIONS, USER MANUALS ETC
 uniq                    # filters unique lines ?
+cat toto.txt | sed 's/toto/tutu/g'  # replace regex (regular expression) in every line of the output of the pipe
 man -k toto             # grep/search through user manuals, larger fishing in help files
 cmd (alias)             # grep through all the available commands
 sip/sap (alias)         # grep through all the installed/available programs of the ubuntu base
@@ -92,7 +97,7 @@ ps -ejH                 # Snapshot of the current processes (see man, plein d'op
 top                     # lists all active processus
 lsusb                   # check usb port to see what is connected
 lspci                   # check pci devices, if they are connected etc
-lslbk                   # check disk, blocks, space
+lsblk                   # check disk, blocks, space
 ip addr  OU ifconfig    # to check the status of your network connection
 iwconfig                # to check the settings of your wireless connection
 chown (-R) root:aurelien file.ext # change ownership of file:user=root and group=aurelien (R for recursive)
@@ -218,7 +223,7 @@ docker container ls -aq
 # Various other info (not necessarily related to nix)
 to eject hard drive from box, go to box from chrome explorer (192.168.1.1), in
 the "state" tab (first tab), peripherals --> eject disk
-
+xinput                  # to modify settings, get information about input peripherals like the touchpad
 
 
 # 0. Shortcuts.
@@ -538,6 +543,7 @@ n<&-       # closes the input from file descripor n
 # To suspend a job, type CTRL+Z while it is running. You can also suspend a job with CTRL+Y.
 # This is slightly different from CTRL+Z in that the process is only stopped when it attempts to read input from terminal.
 # Of course, to interupt a job, type CTRL+C.
+:ter        # opens a terminal in vim, <C-D> to quit (it transforms it in a regular text file that you can copy etc)
 
 myCommand &  # runs job in the background and prompts back the shell
 
@@ -615,3 +621,4 @@ function returntrap {
 }
 
 trap returntrap RETURN  # is executed each time a shell function or a script executed with the . or source commands finishes executing
+

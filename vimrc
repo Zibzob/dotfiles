@@ -7,18 +7,20 @@ call vundle#begin()
 " ============================= PLUGINS =======================================
 Plugin 'VundleVim/Vundle.vim'
 "Plugin 'vim-scripts/L9'
-"Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdtree'
 "Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'junegunn/fzf'
 "Plugin 'christoomey/vim-conflicted'
 "Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'mattn/emmet-vim'
 "Plugin 'sjl/gundo.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-repeat'
 Plugin 'kien/ctrlp.vim'
 "Plugin 'godlygeek/tabular'
@@ -36,7 +38,7 @@ Plugin 'vim-scripts/ReplaceWithRegister' " gr verb to replace with what is in re
 Plugin 'kana/vim-textobj-user' " l (al ou il) : line object : ex cal to change all line without trailing spaces
 Plugin 'kana/vim-textobj-indent' " i/I object for indent : ex >iI to indent inner indent
 Plugin 'kana/vim-textobj-line' " l (al ou il) : line object : ex cal to change all line without trailing spaces
-Plugin 'aaronbieber/vim-quicktask' " notes tool
+"Plugin 'aaronbieber/vim-quicktask' " notes tool
 
 
 " ==== PLUGIN THEMES ====
@@ -133,6 +135,8 @@ set wildmode=list,longest,full
 "set mouse+=a " enable mouse mode (scrolling, selection, etc)
 set dictionary+=/usr/share/dict/words
 set dictionary+=~/Documents/Projects/Scrabble/mots.txt
+"set shellcmdflag=-ic " To be able to use shell aliases within !commands --> makes gvim invisible (no windows, just the unkillable process, when run from ubuntu explorer
+set viminfo='100,f1,<100,:1000,@1000,/1000,%100 "Open vim where it was left when last closed
 
 "" highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -165,6 +169,10 @@ au BufNewfile, BufRead *.py
    "\ set autoindent
    \ set filformat=unix
 
+" Add FZF to runtimepath
+"set rtp+=/usr/local/opt/fzf
+set rtp+=/home/linuxbrew/.linuxbrew/bin/fzf
+
 "autocmd BufWritePost *.py call Flake8() " Call a flake8 check every time I save
 command! MakeTags !ctags -R .
 
@@ -175,6 +183,7 @@ ia pe peut-être
 ia Pe Peut-être
 ia auj aujourd'hui
 ia Auj Aujourd'hui
+ia wh WHO:
 
 " ============================= REMAPS ========================================
 nmap <silent> <A-Up> :wincmd k<CR>
@@ -185,6 +194,7 @@ nmap <silent> <A-Right> :wincmd l<CR>
 " ==== Motions remap ====
 " Escape in insert mode
 inoremap jj <ESC>
+" Auto complete (filename, line, word from dict)
 inoremap <C-B> <C-X><C-F>
 inoremap <C-L> <C-X><C-L>
 inoremap <C-K> <C-X><C-K>
@@ -193,6 +203,8 @@ nnoremap <C-Space> 079l
 " Add a line above/below and enter insert mode in it
 nnoremap <C-CR> o<ESC>k
 nnoremap <S-CR> O<ESC>j
+" glue current line with line above
+nnoremap gj kJ
 " Move between splits of window
 nnoremap <Leader>j <C-W><C-J>
 nnoremap <Leader>k <C-W><C-K>
@@ -206,20 +218,21 @@ nnoremap <Leader>c :call DeleteHiddenBuffers()<CR>
 " Select all
 nnoremap <Leader>a ggVG
 " Opens vimrc and file tree in that directory
-nnoremap <Leader>v :e $MYVIMRC<CR>:NERDTreeFind<CR>
+nnoremap <Leader>v :e $MYVIMRC<CR>
 " Opens python_commands buffer in the background
 nnoremap <Leader>p :e ~/dotfiles/Template/python_commands<CR>:bp<CR>
 " Vim's grep in many files
 nnoremap <Leader>f :vim /
 cnoremap <C-D> /gj ~/dotfiles/*<CR>:cope<CR><C-W>L<C-W><CR>
 cnoremap <C-P> /gj ~/Documents/**/*.*py*<CR>:cope<CR><C-W>L<C-W><CR>
+cnoremap <C-K> /gj ~/Manager/**/*<CR>:cope<CR><C-W>L<C-W><CR>
 cnoremap <C-G> /gj <C-R>%<CR>:cope<CR><C-W>L<C-W><CR>
 " Apply vimrc changes whithout exiting it
 nnoremap <A-s> :source $MYVIMRC<CR>
 " Toggle highlight for searched pattern
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
-" NEXT/PREVIOUS thing ===========
+" NEXT/PREVIOUS thing jump ===========
 " Buffer
 nnoremap <A-l> :bn<CR>
 nnoremap <A-h> :bp<CR>
@@ -250,7 +263,16 @@ nnoremap Q gqap
 vnoremap Q gq
 " Toggle the spell checker
 nnoremap <F8> :setlocal spell! spell?<CR>
-noremap <A-d> :r !date<CR>kJ
+" Print path of the current file at the cursor
+nmap cp :let @" = expand("%:p:h")<cr>""p
+
+" Tasks log mappings
+noremap <Leader>T :e /home/aurelf/Manager/TASKS.txt<CR>
+noremap <A-d> o<Esc>:r !date "+\%Y-\%m-\%d \%H:\%M:\%S"<CR>kJA ## 
+noremap <A-f> kmzjdd/# done<CR>o<Esc>:r !date "+\%Y-\%m-\%d \%H:\%M:\%S - "<CR>p2kJJI- <Esc>>>za'zj
+" Windows
+"noremap <A-d> :r !date /T<CR>:r !time /T<CR>kJI- <esc>A 
+"noremap <A-f> dd/# done<CR>:r !date /T<CR>:r !time /T<CR>p2kJJI- <esc>>>
 
 " ============================= PLUGINS' ======================================
 
@@ -258,12 +280,15 @@ noremap <A-d> :r !date<CR>kJ
 call arpeggio#load()
 Arpeggio noremap jk <ESC>
 Arpeggio noremap rp !python<CR>
+Arpeggio noremap qp Iprint(<ESC>A)<ESC>V!python<CR>
 Arpeggio noremap df :g/<CR>:%s///gn<CR>
-Arpeggio noremap fj 10j
-Arpeggio noremap dk 10k
-Arpeggio noremap nf :e ~\dotfiles\Template\pep8_cheatsheet.py<CR>zMgg43jyj<C-O><C-O>p
-Arpeggio noremap nc :e ~\dotfiles\Template\pep8_cheatsheet.py<CR>zMgg47jyj<C-O><C-O>p
-Arpeggio noremap ni :e ~\dotfiles\Template\pep8_cheatsheet.py<CR>zMggy39j<C-O><C-O>p
+Arpeggio noremap fj 4j
+Arpeggio noremap dk 4k
+Arpeggio noremap nf :e /home/aurelf/dotfiles/Template/pep8_cheatsheet.py<CR>zMgg43jyj<C-O><C-O>p
+Arpeggio noremap nc :e /home/aurelf/dotfiles/Template/pep8_cheatsheet.py<CR>zMgg47jyj<C-O><C-O>p
+Arpeggio noremap ni :e /home/aurelf/dotfiles/Template/pep8_cheatsheet.py<CR>zMggy39j<C-O><C-O>p
+Arpeggio noremap nm :e /home/aurelf/Manager/
+"Arpeggio noremap cw :%s/<C-r>///gn<CR>
 
 " ==== NERDTREE ====
 let NERDTreeIgnore = ['\.pyc$', '\.o$', '\.so$', '\.a$', '[a-zA-Z]*egg[a-zA-Z]*', '[a-zA-Z]*cache[a-zA-Z]*']
@@ -274,6 +299,7 @@ map <C-t> :NERDTreeToggle<CR>
 nnoremap <Leader>t :NERDTreeFind<CR>
 
 " ==== CTRLP ====
+let g:ctrlp_match_window = 'bottom,order:btt,min:0,max:10,results:200'
 nnoremap <A-p> :CtrlP ~<CR>
 "let g:ctrlp_working_path_mode = '0'
 "let g:ctrlp_switch_buffer = 0
@@ -310,7 +336,8 @@ nnoremap <Leader>e :Errors<CR>
 "let g:EasyMotion_smartcase = 1
 nmap F <Plug>(easymotion-s)
 "map <Space> <Plug>(easymotion-prefix)
-let g:EasyMotion_keys = 'jkfdlmsqreuiopzatyghnvJKFDLMSQREUIOPZATYGHNV'
+"let g:EasyMotion_keys = 'jkfdlmsqreuiopzatyghnvJKFDLMSQREUIOPZATYGHNV'
+let g:EasyMotion_keys = 'jkfdlmsqreuiopzatyghnv'
 
 " ==== GRUVBOX ====
 let g:gruvbox_contrast_dark='medium' " soft, medium (default) or hard
@@ -425,4 +452,3 @@ function DeleteHiddenBuffers()
         silent execute 'bwipeout' buf
     endfor
 endfunction
-
