@@ -63,6 +63,7 @@ F8                              # Toggle the spell checker on/off
 {insert}CTRL-x CTRL-autre char  # auto completion (various types depending on the character)
 :read or r {filename}           # copies whatever is in the target file in the current file
 :r !command (ex ls, date, find) # copies the output of the command in the current (or given) file
+{insert}^r=execute('pwd')       # insert the output of an ex command in the current buffer
 :h n_toto (default), i_, v_, c_ # search through help for the command toto in normal/insert/visual etc mode
 :helpgrep (helpg), :helpt etc   # helpg "topic" search through all the help files about topic regex(?)
 :cl, cn/cp, cc number, cope     # after a helpgrep/helpg command, lists all answers, go to the next/previous, to a specific one, open the list in a window

@@ -143,6 +143,7 @@ alias peek='tee >(cat 1>&2)'
 # Mes aliases
 # \cls to use cls command without alias (if the command exists)
 #alias ls='ls -alh'
+alias cd_cockpit='cd C:/Users/FebvreA/dev/docker/script'
 alias c='clear' #ctrl L idem
 alias q='exit'
 alias ..='cd ..  && ls'
