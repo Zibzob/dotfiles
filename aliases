@@ -1,5 +1,6 @@
 #!/bin/bash
 path_dotfiles=~/dotfiles
+path_manager=~/Manager
 
 #################################
 #################################
@@ -144,13 +145,16 @@ alias peek='tee >(cat 1>&2)'
 # \cls to use cls command without alias (if the command exists)
 #alias ls='ls -alh'
 alias cd_cockpit='cd C:/Users/FebvreA/dev/docker/script'
+alias meteo='ansiweather -l elbeuf -a false'
+alias memory_usage='df -H --total | sort -k 2 -h'
+alias disk_usage='du -h | sort -k 1 -h'
 alias c='clear' #ctrl L idem
 alias q='exit'
 alias ..='cd ..  && ls'
 alias ...='cd ../..  && ls'
 alias ....='cd ../../..  && ls'
-alias g='grep'
-alias G='grep -i'
+alias g='grep -i'
+alias G='grep'
 alias pdf='xdg-open'
 alias agi='sudo apt-get install'
 alias agr='sudo apt-get remove'
@@ -162,6 +166,9 @@ alias h='history'
 alias hg='history | grep'
 alias envp='source activate'
 alias life_exp='source activate toto && cd ~/Documents/Projects/lifeExpectancyWiki/ && ipython'
+alias omdb='source activate toto && cd ~/Documents/Projects/movies/ && ipython'
+alias movie='source activate toto && python ~/Documents/Projects/movies/omdb_clean/app.py'
+alias insee='source activate toto && cd ~/Documents/Projects/INSEE/ && ipython'
 alias bonjour='echo Bonjour ô mon maître.'
 alias netw='sudo netstat -tupln'
 alias alo='gvim $path_dotfiles/aliases'
@@ -193,6 +200,9 @@ alias cdml='d ~/Documents/CoursINSA/ML/ML2/TP3_Selection'
 alias cdGraph='d ~/Documents/CoursINSA/Optimisation/TP_Dijkstra'
 alias cdinsa='d ~/Documents/CoursINSA'
 alias ipy='envp toto && vpython'
+alias rl='d /home/aurelf/Documents/Projects/Gym/Gym_walk && envp opensim-rl && ipython'
+alias n='nautilus'
+alias N='nautilus .'
 alias nautML='nautilus $(dirname $(locate evalAF.py))'
 alias noteML='cdML && envp toto && jupyter notebook'
 alias jn='envp toto && jupyter notebook &'
@@ -209,31 +219,45 @@ mkdir $1 && cd $1
 # append to my alias file : function ala() { echo $1 >> $path_dotfiles/aliases }
 function ala() { 
 echo $1 >> $path_dotfiles/aliases
+echo $1 'added to alias file'
 }
 
 # append to my bash commands file : function baa() { echo $1 >> $path_dotfiles/bash_commands }
 function baa() { 
 echo $1 >> $path_dotfiles/bash_commands
+echo $1 'added to bash_commands file'
 }
 
 # append to my python commands file : function pya() { echo $1 >> $path_dotfiles/python_commands }
 function pya() { 
 echo $1 >> $path_dotfiles/python_commands
+echo $1 'added to python_commands file'
 }
 
 # append to my vim commands file : function via() { echo $1 >> $path_dotfiles/vim_commands }
 function via() { 
 echo $1 >> $path_dotfiles/vim_commands
+echo $1 'added to vim_commands file'
 }
 
 # append to my R commands file : function ra() { echo $1 >> $path_dotfiles/r_commands }
 function ra() { 
 echo $1 >> $path_dotfiles/r_commands
+echo $1 'added to r_commands file'
+}
+
+# grep in my alias file : function alg() { grep -i $1 $path_dotfiles/aliases }
+function fd() { 
+grep -iH $1 $path_dotfiles/zshrc
+grep -iH $1 $path_dotfiles/bashrc
+grep -iH $1 $path_dotfiles/bash_commands
+grep -iH $1 $path_dotfiles/vimrc
+grep -iH $1 $path_dotfiles/vim_commands
 }
 
 # grep in my alias file : function alg() { grep -i $1 $path_dotfiles/aliases }
 function alg() { 
-grep -i $1 $path_dotfiles/aliases
+grep -iH $1 $path_dotfiles/aliases
 }
 
 # grep in all alias : function ag() { alias | grep -i $1 }
@@ -267,12 +291,12 @@ grep -i $1 $path_dotfiles/r_commands
 }
 
 function d() { # change directory and ls
-    if [[$1 == '']]
-    then
-        cd ~/ && ls
-    else
+    #if [[$1 == '']]
+    #then
+        #cd ~/ && ls
+    #else
         cd $1 && ls
-    fi
+    #fi
 }
 
 # Search a regex through all python documents in children files : function grepPython() { grep -i $1 $(find -iname *.py) }
@@ -288,6 +312,13 @@ cd $(dirname $(find -iname '$1')) && ls
 # Grep through all the available commands : function cmd() { compgen -A function -abck | grep $1 | sort | grep $1 } 
 function cmd() {
     bash -c "compgen -A function -abck" | sort | grep $1
+    alias -L | g $1
+    functions | g $1
+    #apt list --installed | grep $1
+    #man -k $1
+} 
+function CMD() {
+    bash -c "compgen -A function -abck" | sort | grep $1
     apt list --installed | grep $1
     man -k $1
 } 
@@ -302,6 +333,9 @@ function sip() {
 apt list --installed | grep $1
 }
 
+# Create a directory in ~/Documents/Projects/ named after the string in input,
+# init git in it, create a github repo with the same name, add a README.md file in
+# the directory and push it to github
 function create() {
     cd
     source activate toto
@@ -316,8 +350,10 @@ function create() {
     gvim .
 }
 
+# Remove the repo from github with the name given in input, removes the .git
+# from the local directory, but doesn't delete the directory not its content
 function remove() {
-    my_id=aurelf
+    my_id=Zibzob
     my_password=Basketball89!
     cd
     source activate toto

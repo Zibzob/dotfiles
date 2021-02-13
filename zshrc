@@ -2,7 +2,8 @@
  export PATH=$HOME/bin:/usr/local/bin:$HOME/Documents/Scripts:$PATH
 
 # bashrc
-source ~/.bashrc
+#source ~/.bashrc
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/aurelf/.oh-my-zsh"
 
@@ -20,6 +21,9 @@ ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
+# Auto completion of mid words case insensitive
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
+  '+l:|?=** r:|?=**'
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -62,6 +66,9 @@ ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 # Autojump
 . /usr/share/autojump/autojump.sh
 
+# FZF
+export FZF_BASE="$HOME/.fzf"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -69,11 +76,10 @@ ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 # Add wisely, as too many plugins slow down shell startup.
 
 plugins=(
-  git colored-man-pages vi-mode colorize dirpersist autojump
+  fzf git colored-man-pages vi-mode colorize dirpersist autojump
 )
 
 source $ZSH/oh-my-zsh.sh
-
 
 # User configuration
 
@@ -86,17 +92,17 @@ unsetopt beep
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -107,3 +113,8 @@ unsetopt beep
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/dotfiles/aliases
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

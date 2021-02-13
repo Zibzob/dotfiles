@@ -123,10 +123,8 @@ first_var, *rest = ['toto', 'titi', 'tutu'] # And vice versa #toto
 z = {**x, **y}              # To join dictionnaries together
 d = {}; d['a'] = d.get('a', 0) # To initialize a dict entry without if or try
 https://wiki.python.org/moin/TimeComplexity # about complexity in python
-cles, vals = zip(*dic_toto.items()) # to explode a dict into its keys and values lists
 http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/notebooks/matrix_dictionary.html  # produit matriciel sparse matrix (a la main)
 os.listdir('.')     # to list the files in the given directory
-
 
 # MODULES, PACKAGES
 # =============================================================================
@@ -257,6 +255,7 @@ elif condition2:
 else:
 while condition:
     break # Si on veut forcer la sortie de la boucle
+    continue # Go straight to the next loop without finishing the current one
 
 # Switch (inexistant in python) with a dictionary
 def f(x):
@@ -461,6 +460,13 @@ ma_voiture.__dict__ # to check the attributes of an object
 
 # DEBUGGING
 # =============================================================================
+%run -d my_file.py # Start a pdb session with commands like b 10, s, c...
+b 15 # Set a breakpoint at line 15
+c # Continue to next breakpoint
+s # Step into next statement (goes into functions)
+n # Jump to next statement [jumps over functions)
+div() # Prints the current local variables
+runcall(fun) # On a specific function (see doc)
 pdb # toggles the interactive ipython debugger
 debug # retroactively enters the pdb debugger (after a run command)
 import ipdb        ipdb.set_trace() # stops the run at the trace and launch the pdb debugger

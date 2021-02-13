@@ -34,3 +34,5 @@ set editing-mode vi
 
 # added by Miniconda3 installer
 export PATH="/home/aurelf/miniconda3/bin:$PATH"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
